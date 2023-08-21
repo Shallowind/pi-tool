@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="min_column_width">1dp</dimen>
+    <dimen name="additional_width_for_number" > 5dp </dimen>
+</resources>
