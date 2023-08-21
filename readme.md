@@ -7,3 +7,4 @@
 #### 安装教程
 在release内查找最新版本安装即可。
 
+![alt text](https://foruda.gitee.com/images/1692628564423907593/5eba3ade_11922514.jpeg)
