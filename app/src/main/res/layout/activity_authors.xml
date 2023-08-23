@@ -48,7 +48,7 @@
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="PI Tool\n version1.6.2正式版"
+        android:text="PI Tool\n version1.6.3正式版"
         android:textSize="35dp"
         app:layout_constraintBottom_toTopOf="@+id/textView17"
         app:layout_constraintEnd_toEndOf="parent"

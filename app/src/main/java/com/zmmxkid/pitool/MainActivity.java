@@ -15,7 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
-    public static double version=1.62;
+    public static double version=1.63;
     public static scnperson.LoadDataTask currentTask;
     public static mainperson.LoadDataTask currentTask2;
     public static b30.DownloadImageTaskForImageView currentTask1;
