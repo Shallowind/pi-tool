@@ -1,0 +1,8 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+    <solid android:color="#33FFFF00" /> <!-- 这里是ARGB格式，A=51 (0.2的透明度), FFFF00为黄色 -->
+    <size android:width="10dp" android:height="10dp" /> <!-- 按钮大小 -->
+
+    <corners android:radius="5dp"/> <!-- 圆角半径 -->
+</shape>

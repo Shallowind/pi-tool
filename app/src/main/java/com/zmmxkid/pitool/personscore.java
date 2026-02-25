@@ -6,25 +6,49 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import static com.zmmxkid.pitool.MainActivity.randomNumber;
+
 public class personscore extends AppCompatActivity {
+    static final String PREFS_NAME = "MyPrefs";
+    static final String PREF_QQ = "qq";
     private EditText qqEditText;
-    private static final String PREFS_NAME = "MyPrefs";
-    private static final String PREF_QQ = "qq";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personscore);
+        ConstraintLayout backLayout = findViewById(R.id.backlayout); // 假设你有一个 LinearLayout 用作背景
+        // 根据随机数选择相应的图片
+        switch (randomNumber) {
+            case 1:
+                backLayout.setBackgroundResource(R.drawable.img11);
+                break;
+            case 2:
+                backLayout.setBackgroundResource(R.drawable.img22);
+                break;
+            case 3:
+                backLayout.setBackgroundResource(R.drawable.img33);
+                break;
+            case 4:
+                backLayout.setBackgroundResource(R.drawable.img44);
+                break;
+            case 5:
+                backLayout.setBackgroundResource(R.drawable.img55);
+                break;
+            default:
+                // 默认处理
+                backLayout.setBackgroundResource(R.drawable.img11); // 如果发生异常，设置 img1
+                break;
+        }
         qqEditText = findViewById(R.id.editTextText4);
         loadSavedQQ();
     }
@@ -34,7 +58,7 @@ public class personscore extends AppCompatActivity {
         String qq = qqEditText.getText().toString();
 
         // Construct the URL with the provided qq
-        String url = "http://47.241.0.156:34567/WebAPI/public/Bests/" + qq + ".txt";
+        String url = "http://47.93.57.125:521/WebAPI/public/Bests/" + qq + ".txt";
         saveQQ(qq);
 
         // Execute AsyncTask to perform network operation
@@ -42,7 +66,23 @@ public class personscore extends AppCompatActivity {
     }
 
     public void b30(View view) {
-        Intent intent = new Intent(this,b30.class);
+        Intent intent = new Intent(this, b30.class);
+        EditText qqEditText = findViewById(R.id.editTextText4);
+        String qq = qqEditText.getText().toString();
+        saveQQ(qq);
+        intent.putExtra("qq", qq);
+        startActivity(intent);
+    }
+    public void scnall(View view) {
+        Intent intent = new Intent(this, Overall.class);
+        EditText qqEditText = findViewById(R.id.editTextText4);
+        String qq = qqEditText.getText().toString();
+        saveQQ(qq);
+        intent.putExtra("qq", qq);
+        startActivity(intent);
+    }
+    public void seehistory(View view) {
+        Intent intent = new Intent(this, HistoryActivity.class);
         EditText qqEditText = findViewById(R.id.editTextText4);
         String qq = qqEditText.getText().toString();
         saveQQ(qq);
@@ -51,17 +91,36 @@ public class personscore extends AppCompatActivity {
     }
 
     public void overall(View view) {
-        Intent intent = new Intent(this,Overall.class);
+        Intent intent = new Intent(this, charts.class);
         EditText qqEditText = findViewById(R.id.editTextText4);
         String qq = qqEditText.getText().toString();
         saveQQ(qq);
-        intent.putExtra("qq", qq);
+        intent.putExtra("url", "http://47.93.57.125:521/WebAPI/public/scenarioDependence-PITool.html?userId="+qq+"&bg="+randomNumber);
         startActivity(intent);
     }
+    public void cjkptt(View view) {
+        Intent intent = new Intent(this,cjkptt.class);
+        startActivity(intent);
+    }
+    public void jisuanqi(View view) {
+        Intent intent = new Intent(this, caculate.class);
+        startActivity(intent);
+    }
+    public void cjk(View view) {
+        Intent intent = new Intent(this,scnlist.class);
+        startActivity(intent);
+    }
+    private void saveQQ(String qq) {
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(PREF_QQ, qq);
+        editor.apply();
+    }
 
-    public void qingchu(View view) {
-        EditText qqEditText = findViewById(R.id.editTextText4);
-        qqEditText.setText("");
+    private void loadSavedQQ() {
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        String savedQQ = settings.getString(PREF_QQ, "");
+        qqEditText.setText(savedQQ);
     }
 
     private class DownloadDataTask extends AsyncTask<String, Void, String> {
@@ -95,35 +154,34 @@ public class personscore extends AppCompatActivity {
                 EditText qqEditText = findViewById(R.id.editTextText4);
                 String qq = qqEditText.getText().toString();
                 String filename = qq + ".txt";
-                File file = new File(getFilesDir(), filename);
+                File file = new File(getExternalFilesDir(null), filename);
+
                 try {
+                    // 写入其他响应内容（假设response是你要写入的内容）
                     FileOutputStream outputStream = new FileOutputStream(file);
                     outputStream.write(response.getBytes());
                     outputStream.close();
 
-                    // Start the scoreview activity
-                    Toast.makeText(personscore.this, "服务器请求成功", Toast.LENGTH_LONG).show();
+                    // 创建QQ.txt文件并写入QQ号
+                    File qqFile = new File(getExternalFilesDir(null), "QQ.txt");
+                    FileOutputStream qqOutputStream = new FileOutputStream(qqFile);
+                    qqOutputStream.write(qq.getBytes()); // 将QQ号写入文件
+                    qqOutputStream.close(); // 关闭流
+
+                    // 显示账号绑定成功的Toast提示
+                    Toast.makeText(personscore.this, "账号绑定成功", Toast.LENGTH_LONG).show();
+
+                    // 启动personview Activity并传递必要的数据
                     Intent intent = new Intent(personscore.this, personview.class);
                     intent.putExtra("qq", qq);
-                    intent.putExtra("filename", filename); // Pass the filename to the next activity
+                    intent.putExtra("filename", filename); // 将filename传递到下一个活动
                     startActivity(intent);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
             }
         }
 
-    }
-    private void saveQQ(String qq) {
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString(PREF_QQ, qq);
-        editor.apply();
-    }
-
-    private void loadSavedQQ() {
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        String savedQQ = settings.getString(PREF_QQ, "");
-        qqEditText.setText(savedQQ);
     }
 }

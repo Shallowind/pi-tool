@@ -1,162 +1,491 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".worldscore">
-
-    <LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/backlayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:padding="24dp"
+        android:background="@color/background_color">
 
-        <Space
+    <!-- 1. QQ输入区 -->
+    <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请输入QQ号："
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="32dp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/edit_container"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1.5" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/textView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-        <LinearLayout
+        <EditText
+                android:id="@+id/editTextText4"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:background="@drawable/bg_input"
+                android:gravity="center"
+                android:inputType="text"
+                android:text="380593916"
+                android:textSize="24sp"
+                android:textColor="@color/text_primary"
+                android:hint="QQ号码"
+                android:textColorHint="@color/text_hint"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/buttonBind"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginEnd="8dp" />
+
+        <!-- 绑定按钮：改为单个Emoji -->
+        <Button
+                android:id="@+id/buttonBind"
+                android:layout_width="64dp"
+                android:layout_height="0dp"
+                android:background="@drawable/select_button"
+                android:onClick="drawscore"
+                android:text="🔗"
+                android:textSize="24sp"
+                android:textColor="@color/text_def"
+                android:gravity="center"
+                app:layout_constraintStart_toEndOf="@id/editTextText4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/editTextText4"
+                app:layout_constraintBottom_toBottomOf="@id/editTextText4" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- 2. 游戏选择标题区 -->
+    <TextView
+            android:id="@+id/textView34"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择游戏"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@id/edit_container"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+            android:id="@+id/textView35"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="8.5"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:text="请务必按照你选择的进行游玩\n存档名称才能正确"
+            android:textSize="14sp"
+            android:textColor="@color/text_secondary"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.2"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/textView34"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-            <Space
-                android:layout_width="match_parent"
+    <!-- 3. 游戏选择区 (已去除所有Emoji) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/game_selection_area"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/textView35"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/bottom_container">
+
+        <!-- 主游戏 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/row_zhu"
+                android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="3" />
+                app:layout_constraintHeight_max="56dp"
+                app:layout_constraintHeight_min="40dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/row_ju"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <Spinner
+            <Spinner
                     android:id="@+id/spinnerzhu"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"/>
+                    android:layout_height="0dp"
+                    android:background="@drawable/spinner_background"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="40dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/button17"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginEnd="12dp" />
 
-                <Button
+            <com.google.android.material.button.MaterialButton
                     android:id="@+id/button17"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
+                    android:layout_height="0dp"
+                    android:text="🎮 主游戏  "
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
                     android:onClick="zhuyouxi"
-                    android:text="主游戏"
-                    android:textSize="15dp" />
-            </LinearLayout>
+                    app:cornerRadius="8dp"
+                    app:backgroundTint="@color/blue_500"
+                    app:layout_constraintStart_toEndOf="@id/spinnerzhu"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <Space
-                android:layout_width="match_parent"
+        <!-- 剧情模式 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/row_ju"
+                android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="1" />
+                app:layout_constraintHeight_max="56dp"
+                app:layout_constraintHeight_min="40dp"
+                app:layout_constraintTop_toBottomOf="@id/row_zhu"
+                app:layout_constraintBottom_toTopOf="@id/row_ji"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <Spinner
+            <Spinner
                     android:id="@+id/spinnerju"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"/>
+                    android:layout_height="0dp"
+                    android:background="@drawable/spinner_background"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="40dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/button18"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginEnd="12dp" />
 
-                <Button
+            <com.google.android.material.button.MaterialButton
                     android:id="@+id/button18"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
+                    android:layout_height="0dp"
+                    android:text="🎬 剧情模式"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
                     android:onClick="juqing"
-                    android:text="剧情模式"
-                    android:textSize="15dp" />
-            </LinearLayout>
+                    app:cornerRadius="8dp"
+                    app:backgroundTint="@color/green_600"
+                    app:layout_constraintStart_toEndOf="@id/spinnerju"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <Space
-                android:layout_width="match_parent"
+        <!-- 急速通关 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/row_ji"
+                android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="1" />
+                app:layout_constraintHeight_max="56dp"
+                app:layout_constraintHeight_min="40dp"
+                app:layout_constraintTop_toBottomOf="@id/row_ju"
+                app:layout_constraintBottom_toTopOf="@id/row_jie"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <Spinner
+            <Spinner
                     android:id="@+id/spinnerji"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5" />
+                    android:layout_height="0dp"
+                    android:background="@drawable/spinner_background"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="40dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/button19"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginEnd="12dp" />
 
-                <Button
+            <com.google.android.material.button.MaterialButton
                     android:id="@+id/button19"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
+                    android:layout_height="0dp"
+                    android:text="⚡ 急速通关"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
                     android:onClick="jisu"
-                    android:text="急速通关"
-                    android:textSize="15dp" />
-            </LinearLayout>
+                    app:cornerRadius="8dp"
+                    app:backgroundTint="@color/orange_600"
+                    app:layout_constraintStart_toEndOf="@id/spinnerji"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <Space
-                android:layout_width="match_parent"
+        <!-- 解药模式 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/row_jie"
+                android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="1" />
+                app:layout_constraintHeight_max="56dp"
+                app:layout_constraintHeight_min="40dp"
+                app:layout_constraintTop_toBottomOf="@id/row_ji"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <Spinner
+            <Spinner
                     android:id="@+id/spinnerjie"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5" />
+                    android:layout_height="0dp"
+                    android:background="@drawable/spinner_background"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="40dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/button20"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginEnd="12dp" />
 
-                <Button
+            <com.google.android.material.button.MaterialButton
                     android:id="@+id/button20"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
+                    android:layout_height="0dp"
+                    android:text="💊 解药模式"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
                     android:onClick="jieyao"
-                    android:text="解药模式"
-                    android:textSize="15dp" />
+                    app:cornerRadius="8dp"
+                    app:backgroundTint="@color/purple_500"
+                    app:layout_constraintStart_toEndOf="@id/spinnerjie"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- 4. 底部按钮容器 (合并为垂直LinearLayout确保2x2整齐) -->
+    <LinearLayout
+            android:id="@+id/bottom_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/game_selection_area"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- 第一排 -->
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <!-- 总分排行榜 🏆 -->
+            <LinearLayout
+                    android:id="@+id/button21"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="4dp"
+                    android:background="@drawable/select_button"
+                    android:onClick="totalrank"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="🏆"
+                        android:textSize="20sp" />
+
+                <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="总分排行榜"
+                        android:textColor="@color/text_def"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="🏆"
+                        android:textSize="20sp" />
             </LinearLayout>
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+            <!-- 个人成绩 👤 -->
+            <LinearLayout
+                    android:id="@+id/button22"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
+                    android:background="@drawable/select_button"
+                    android:onClick="personal"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true">
 
-            <Button
-                android:id="@+id/button21"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:textColor="@color/yellow"
-                android:textSize="20dp"
-                android:text="场景库"
-                android:onClick="cjk"
-                android:backgroundTint="#FF11FF" /> <!-- 红色背景 -->
+                <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="👤"
+                        android:textSize="20sp" />
 
+                <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="3" />
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="个人成绩"
+                        android:textColor="@color/text_def"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="👤"
+                        android:textSize="20sp" />
+            </LinearLayout>
         </LinearLayout>
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1.5" />
+        <!-- 第二排 -->
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+            <!-- 分数计算器 🧮 -->
+            <LinearLayout
+                    android:id="@+id/button23"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="4dp"
+                    android:background="@drawable/select_button"
+                    android:onClick="calculator"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="🧮"
+                        android:textSize="20sp" />
+
+                <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="分数计算器"
+                        android:textColor="@color/text_def"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="🧮"
+                        android:textSize="20sp" />
+            </LinearLayout>
+
+            <!-- 攻略查询 📖 -->
+            <LinearLayout
+                    android:id="@+id/button24"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
+                    android:background="@drawable/select_button"
+                    android:onClick="guide"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="📖"
+                        android:textSize="20sp" />
+
+                <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="攻略查询"
+                        android:textColor="@color/text_def"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="📖"
+                        android:textSize="20sp" />
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

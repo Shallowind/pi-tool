@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 背景形状 -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/card_background" />
+            <stroke android:width="1dp" android:color="@color/card_stroke" />
+            <corners android:radius="6dp" />
+        </shape>
+    </item>
+    <!-- 下拉箭头 -->
+    <item
+            android:drawable="@drawable/ic_dropdown_arrow"
+            android:gravity="center_vertical|end"
+            android:right="8dp" />
+</layer-list>

@@ -1,0 +1,714 @@
+<Data xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <GameEvents>
+    <GameEvent Tutorial="false" Debug="false" RecentEventCounter="5" ResetRecentEventCounter="true" Name="富裕国家进行核威慑" Editable="HIDDEN" Scenarios="ALL" Limit="1">
+      <TypeCondition>
+        <Type>VIRUS</Type>
+      </TypeCondition>
+      <DiseaseCondition>
+        
+        
+        <Conditions>
+          <Cond CombineOp="AND" MapOp="SELF" SumOp="SELF">
+            <Cond MapOp="SELF" SumOp="SELF">
+              <EventVal isTriggered="true" event="贫困国家暴动" />
+            </Cond>
+            <Cond MapOp="SELF" SumOp="SELF">
+              <EventVal isTriggered="false" event="精神问题" />
+            </Cond>
+          </Cond>
+          <Cond CombineOp="AND" MapOp="SELF" SumOp="SELF">
+            <Cond MapOp="SELF" SumOp="SELF">
+              <TechVal isTriggered="false" tech="drug_resistance_2" />
+            </Cond>
+          </Cond>
+          <Cond CombineOp="GREATER_THAN" MapOp="SELF" SumOp="SELF">
+            <Cond MapOp="SELF" SumOp="SELF">
+              <LiteralVal Val="49" />
+            </Cond>
+            <Cond MapOp="SELF" SumOp="SELF">
+              <RandomVal IsFloat="false" Min="1" Max="100" />
+            </Cond>
+          </Cond>
+          <Cond CombineOp="GREATER_THAN" MapOp="SELF" SumOp="SELF">
+            <Cond Target="DISEASE" MapOp="SELF" SumOp="SELF">
+              <FieldVal Field="turnNumber" Op="SET" />
+            </Cond>
+            <Cond CombineOp="PLUS" MapOp="SELF" SumOp="SELF">
+              <Cond Target="DISEASE" MapOp="SELF" SumOp="SELF">
+                <FieldVal Field="customGlobalVariable1" Op="SET" />
+              </Cond>
+              <Cond MapOp="SELF" SumOp="SELF">
+                <RandomVal IsFloat="false" Min="16" Max="25" />
+              </Cond>
+            </Cond>
+          </Cond>
+        </Conditions>
+      </DiseaseCondition>
+      <LocalCondition>
+        <Conditions>
+          <Cond CombineOp="EQUALS" MapOp="SELF" SumOp="SELF">
+            <Cond Target="COUNTRY" MapOp="SELF" SumOp="SELF">
+              <FieldVal Field="importance" Op="SET" />
+            </Cond>
+            <Cond MapOp="SELF" SumOp="SELF">
+              <LiteralVal Val="1.25" />
+            </Cond>
+          </Cond>
+        </Conditions>
+      </LocalCondition>
+      <Outcomes>
+        <Outcome LogicalOp="ALWAYS">
+          <LocalEffect>
+            <Effects />
+          </LocalEffect>
+          <PopupIcon>nuclear_explosion</PopupIcon>
+          <PopupTitle OnlyIfNotNoticed="false">%C对部分贫困国家进行核威慑<useLocalisation>true</useLocalisation></PopupTitle>
+          <PopupMessage OnlyIfNotNoticed="false">%C声称非洲部分国家不要轻举妄动，否则会进行核打击！<useLocalisation>true</useLocalisation></PopupMessage>
+          <NewsMessage OnlyIfNotNoticed="false"><useLocalisation>true</useLocalisation></NewsMessage>
+          <DynamicNewsItem>false</DynamicNewsItem>
+          <NewsPriority>1</NewsPriority>
+        </Outcome>
+        <Outcome LogicalOp="ALWAYS">
+          <LocalEffect>
+            <Effects>
+              <Effect MapOp="SELF" Target="LOCALDISEASE" Field="infectedPopulationOverride" Op="PLUS">
+                <Parameter MapOp="SELF" SumOp="SELF">
+                  <RandomVal IsFloat="false" Min="28" Max="134" />
+                </Parameter>
+              </Effect>
+            </Effects>
+          </LocalEffect>
+          <DynamicNewsItem>false</DynamicNewsItem>
+        </Outcome>
+        <Outcome LogicalOp="ALWAYS">
+          <LocalEffect>
+            <Effects>
+              <Effect MapOp="SELF" Target="COUNTRY" Field="importance" Op="PLUS">
+                <Parameter MapOp="SELF" SumOp="SELF">
+                  <LiteralVal Val="0.5" />
+                </Parameter>
+              </Effect>
+            </Effects>
+          </LocalEffect>
+          <DynamicNewsItem>false</DynamicNewsItem>
+        </Outcome>
+      </Outcomes>
+    </GameEvent>
+    <GameEvent Tutorial="false" Debug="false" RecentEventCounter="0" ResetRecentEventCounter="true" Name="成就1：天选之菌" Editable="HIDDEN" Scenarios="ALL" Limit="1">
+      <TypeCondition>
+        <Type>VIRUS</Type>
+      </TypeCondition>
+      <DiseaseCondition>
+        
+        
+        <Conditions>
+          <Cond CombineOp="AND" MapOp="SELF" SumOp="SELF">
+            <Cond MapOp="SELF" SumOp="SELF">
+              <EventVal isTriggered="true" event="解药研发加快" />
+            </Cond>
+            <Cond MapOp="SELF" SumOp="SELF">
+              <EventVal isTriggered="false" event="解药受挫" />
+            </Cond>
+          </Cond>
+        </Conditions>
+      </DiseaseCondition>
+      <Outcomes>
+        <Outcome LogicalOp="ALWAYS">
+          <LocalEffect>
+            <Effects />
+          </LocalEffect>
+          <PopupIcon>scenario_DEFAULT</PopupIcon>
+          <PopupTitle OnlyIfNotNoticed="false">恭喜完成“天选之菌”成就！<useLocalisation>true</useLocalisation></PopupTitle>
+          <PopupMessage OnlyIfNotNoticed="false">虽然你的解药被快速研发，但是天选之菌就是你！<useLocalisation>true</useLocalisation></PopupMessage>
+          <NewsMessage OnlyIfNotNoticed="false"><useLocalisation>true</useLocalisation></NewsMessage>
+          <DynamicNewsItem>false</DynamicNewsItem>
+          <NewsPriority>1</NewsPriority>
+        </Outcome>
+        <Outcome LogicalOp="ALWAYS">
+          <LocalEffect>
+            <Effects>
+              <Effect MapOp="SELF" Target="DISEASE" Field="wealthy" Op="PLUS">
+                <Parameter MapOp="SELF" SumOp="SELF">
+                  <LiteralVal Val="0.25" />
+                </Parameter>
+              </Effect>
+            </Effects>
+          </LocalEffect>
+          <DynamicNewsItem>false</DynamicNewsItem>
+        </Outcome>
+      </Outcomes>
+    </GameEvent>
+    <GameEvent Tutorial="false" Debug="false" RecentEventCounter="0" ResetRecentEventCounter="true" Name="成就2：覆水难收" Editable="HIDDEN" Scenarios="ALL" Limit="1">
+      <TypeCondition>
+        <Type>VIRUS</Type>
+      </TypeCondition>
+      <DiseaseCondition>
+        
+        
+        <Conditions>
+          <Cond CombineOp="AND" MapOp="SELF" SumOp="SELF">
+            <Cond MapOp="SELF" SumOp="SELF">
+              <EventVal isTriggered="true" event="富裕国家进行核威慑" />
+            </Cond>
+            <Cond MapOp="SELF" SumOp="SELF">
+              <EventVal isTriggered="true" event="核爆" />
+            </Cond>
+          </Cond>
+        </Conditions>
+      </DiseaseCondition>
+      <Outcomes>
+        <Outcome LogicalOp="ALWAYS">
+          <LocalEffect>
+            <Effects />
+          </LocalEffect>
+          <PopupIcon>scenario_DEFAULT</PopupIcon>
+          <PopupTitle OnlyIfNotNoticed="false">恭喜完成“覆水难收”成就！<useLocalisation>true</useLocalisation></PopupTitle>
+          <PopupMessage OnlyIfNotNoticed="false">你的%D疫情引发世界大危机！世界卫生组织将难以收场！<useLocalisation>true</useLocalisation></PopupMessage>
+          <NewsMessage OnlyIfNotNoticed="false"><useLocalisation>true</useLocalisation></NewsMessage>
+          <DynamicNewsItem>false</DynamicNewsItem>
+          <NewsPriority>1</NewsPriority>
+        </Outcome>
+        <Outcome LogicalOp="ALWAYS">
+          <LocalEffect>
+            <Effects>
+              <Effect MapOp="SELF" Target="DISEASE" Field="cureBaseMultiplier" Op="PLUS">
+                <Parameter MapOp="SELF" SumOp="SELF">
+                  <LiteralVal Val="0.25" />
+                </Parameter>
+              </Effect>
+            </Effects>
+          </LocalEffect>
+          <DynamicNewsItem>false</DynamicNewsItem>
+        </Outcome>
+      </Outcomes>
+    </GameEvent>
+    <GameEvent Tutorial="false" Debug="false" RecentEventCounter="0" ResetRecentEventCounter="true" Name="成就3：命运共同体" Editable="HIDDEN" Scenarios="ALL" Limit="1">
+      <TypeCondition>
+        <Type>VIRUS</Type>
+      </TypeCondition>
+      <DiseaseCondition>
+        
+        
+        <Conditions>
+          <Cond CombineOp="AND" MapOp="SELF" SumOp="SELF">
+            <Cond MapOp="SELF" SumOp="SELF">
+              <EventVal isTriggered="true" event="精神问题" />
+            </Cond>
+            <Cond MapOp="SELF" SumOp="SELF">
+              <EventVal isTriggered="false" event="成就2：覆水难收" />
+            </Cond>
+          </Cond>
+        </Conditions>
+      </DiseaseCondition>
+      <Outcomes>
+        <Outcome LogicalOp="ALWAYS">
+          <LocalEffect>
+            <Effects />
+          </LocalEffect>
+          <PopupIcon>report</PopupIcon>
+          <PopupTitle OnlyIfNotNoticed="false">恭喜完成“命运共同体”成就！<useLocalisation>true</useLocalisation></PopupTitle>
+          <PopupMessage OnlyIfNotNoticed="false">你的疾病并没有引发人类战争，反而他们将同仇敌忾，积极对抗疫情！<useLocalisation>true</useLocalisation></PopupMessage>
+          <NewsMessage OnlyIfNotNoticed="false"><useLocalisation>true</useLocalisation></NewsMessage>
+          <DynamicNewsItem>false</DynamicNewsItem>
+          <NewsPriority>1</NewsPriority>
+        </Outcome>
+        <Outcome LogicalOp="ALWAYS">
+          <LocalEffect>
+            <Effects>
+              <Effect MapOp="SELF" Target="DISEASE" Field="mutation" Op="PLUS">
+                <Parameter MapOp="SELF" SumOp="SELF">
+                  <LiteralVal Val="0.5" />
+                </Parameter>
+              </Effect>
+            </Effects>
+          </LocalEffect>
+          <DynamicNewsItem>false</DynamicNewsItem>
+        </Outcome>
+      </Outcomes>
+    </GameEvent>
+    <GameEvent Tutorial="false" Debug="false" RecentEventCounter="2" ResetRecentEventCounter="true" Name="胜利" Editable="HIDDEN" Scenarios="ALL" Limit="1">
+      <TypeCondition>
+        <Type>VIRUS</Type>
+      </TypeCondition>
+      <DiseaseCondition>
+        
+        
+        <Conditions>
+          <Cond CombineOp="GREATER_THAN" MapOp="SELF" SumOp="SELF">
+            <Cond Target="DISEASE" MapOp="SELF" SumOp="SELF">
+              <FieldVal Field="globalDeadPerc" Op="SET" />
+            </Cond>
+            <Cond MapOp="SELF" SumOp="SELF">
+              <LiteralVal Val="0.99" />
+            </Cond>
+          </Cond>
+        </Conditions>
+      </DiseaseCondition>
+      <Outcomes>
+        <Outcome LogicalOp="ALWAYS">
+          <LocalEffect>
+            <Effects>
+              <Effect MapOp="SELF" Target="DISEASE" Field="daysToGameWin" Op="SET">
+                <Parameter MapOp="SELF" SumOp="SELF">
+                  <LiteralVal Val="2" />
+                </Parameter>
+              </Effect>
+            </Effects>
+          </LocalEffect>
+          <DynamicNewsItem>false</DynamicNewsItem>
+        </Outcome>
+        <Outcome LogicalOp="ALWAYS">
+          <LocalEffect>
+            <Effects />
+          </LocalEffect>
+          <PopupIcon>plague_inc_scenario_creator_tmp_9937869.png</PopupIcon>
+          <PopupTitle OnlyIfNotNoticed="false">胜利<useLocalisation>true</useLocalisation></PopupTitle>
+          <PopupMessage OnlyIfNotNoticed="false">%D毁灭了人类，剩余的人类已经无法对%D造成任何威胁！<useLocalisation>true</useLocalisation></PopupMessage>
+          <NewsMessage OnlyIfNotNoticed="false"><useLocalisation>true</useLocalisation></NewsMessage>
+          <DynamicNewsItem>false</DynamicNewsItem>
+          <NewsPriority>1</NewsPriority>
+        </Outcome>
+      </Outcomes>
+    </GameEvent>
+    <GameEvent Tutorial="false" Debug="false" RecentEventCounter="13" ResetRecentEventCounter="true" Name="核爆" Editable="HIDDEN" Scenarios="ALL" Limit="1">
+      <TypeCondition>
+        <Type>VIRUS</Type>
+      </TypeCondition>
+      <DiseaseCondition>
+        
+        
+        <Conditions>
+          <Cond CombineOp="AND" MapOp="SELF" SumOp="SELF">
+            <Cond MapOp="SELF" SumOp="SELF">
+              <EventVal isTriggered="true" event="富裕国家进行核威慑" />
+            </Cond>
+          </Cond>
+          <Cond CombineOp="AND" MapOp="SELF" SumOp="SELF">
+            <Cond MapOp="SELF" SumOp="SELF">
+              <TechVal isTriggered="true" tech="air_2" />
+            </Cond>
+            <Cond MapOp="SELF" SumOp="SELF">
+              <TechVal isTriggered="true" tech="53f680d1-513b-4ea6-828a-f2fa71fddb53" />
+            </Cond>
+            <Cond MapOp="SELF" SumOp="SELF">
+              <TechVal isTriggered="true" tech="cfdb0824-ccac-4357-97ba-67a305b30f9d" />
+            </Cond>
+            <Cond MapOp="SELF" SumOp="SELF">
+              <TechVal isTriggered="true" tech="inflammation" />
+            </Cond>
+          </Cond>
+          <Cond CombineOp="GREATER_THAN_OR_EQUAL" MapOp="SELF" SumOp="SELF">
+            <Cond CombineOp="PLUS" MapOp="SELF" SumOp="SELF">
+              <Cond MapOp="SELF" SumOp="SELF">
+                <LiteralVal Val="49" />
+              </Cond>
+              <Cond MapOp="SELF" SumOp="SELF">
+                <RandomVal IsFloat="false" Min="17" Max="34" />
+              </Cond>
+            </Cond>
+            <Cond MapOp="SELF" SumOp="SELF">
+              <RandomVal IsFloat="false" Min="64" Max="81" />
+            </Cond>
+          </Cond>
+        </Conditions>
+      </DiseaseCondition>
+      <LocalCondition>
+        <Conditions>
+          <Cond CombineOp="EQUALS" MapOp="SELF" SumOp="SELF">
+            <Cond Target="COUNTRY" MapOp="SELF" SumOp="SELF">
+              <FieldVal Field="importance" Op="SET" />
+            </Cond>
+            <Cond MapOp="SELF" SumOp="SELF">
+              <LiteralVal Val="0.5" />
+            </Cond>
+          </Cond>
+        </Conditions>
+      </LocalCondition>
+      <Outcomes>
+        <Outcome LogicalOp="ALWAYS">
+          <LocalEffect>
+            <Effects />
+          </LocalEffect>
+          <PopupIcon>nuclear_explosion</PopupIcon>
+          <PopupTitle OnlyIfNotNoticed="false">核打击<useLocalisation>true</useLocalisation></PopupTitle>
+          <PopupMessage OnlyIfNotNoticed="false">%C遭受严重的核打击，惨遭生物根除！<useLocalisation>true</useLocalisation></PopupMessage>
+          <NewsMessage OnlyIfNotNoticed="false"><useLocalisation>true</useLocalisation></NewsMessage>
+          <DynamicNewsItem>false</DynamicNewsItem>
+          <NewsPriority>1</NewsPriority>
+        </Outcome>
+        <Outcome LogicalOp="ALWAYS">
+          <LocalEffect>
+            <Effects>
+              <Effect MapOp="SELF" Target="LOCALDISEASE" Field="deadPopulationOverride" Op="PLUS">
+                <Parameter MapOp="SELF" SumOp="SELF">
+                  <LiteralVal Val="900000000" />
+                </Parameter>
+              </Effect>
+            </Effects>
+          </LocalEffect>
+          <DynamicNewsItem>false</DynamicNewsItem>
+        </Outcome>
+      </Outcomes>
+    </GameEvent>
+    <GameEvent Tutorial="false" Debug="false" RecentEventCounter="5" ResetRecentEventCounter="true" Name="相似性" Editable="HIDDEN" Scenarios="ALL" Limit="1">
+      <TypeCondition>
+        <Type>VIRUS</Type>
+      </TypeCondition>
+      <DiseaseCondition>
+        
+        
+        <Conditions>
+          <Cond CombineOp="GREATER_THAN" MapOp="SELF" SumOp="SELF">
+            <Cond CombineOp="PLUS" MapOp="SELF" SumOp="SELF">
+              <Cond Target="DISEASE" MapOp="SELF" SumOp="SELF">
+                <FieldVal Field="globalInfectedPerc" Op="SET" />
+              </Cond>
+              <Cond Target="DISEASE" MapOp="SELF" SumOp="SELF">
+                <FieldVal Field="globalDeadPerc" Op="SET" />
+              </Cond>
+            </Cond>
+            <Cond MapOp="SELF" SumOp="SELF">
+              <LiteralVal Val="0.12" />
+            </Cond>
+          </Cond>
+        </Conditions>
+      </DiseaseCondition>
+      <Outcomes>
+        <Outcome LogicalOp="ALWAYS">
+          <LocalEffect>
+            <Effects />
+          </LocalEffect>
+          <PopupIcon>cure_report</PopupIcon>
+          <PopupTitle OnlyIfNotNoticed="false">世界卫生组织表示%D与埃博拉病毒存在相似性。<useLocalisation>true</useLocalisation></PopupTitle>
+          <PopupMessage OnlyIfNotNoticed="false">世界卫生组织表示%D与埃博拉病毒存在相似性，研发解药速度加快。<useLocalisation>true</useLocalisation></PopupMessage>
+          <NewsMessage OnlyIfNotNoticed="false"><useLocalisation>true</useLocalisation></NewsMessage>
+          <DynamicNewsItem>false</DynamicNewsItem>
+          <NewsPriority>1</NewsPriority>
+        </Outcome>
+        <Outcome LogicalOp="ALWAYS">
+          <LocalEffect>
+            <Effects>
+              <Effect MapOp="SELF" Target="DISEASE" Field="bonusPriority" Op="PLUS">
+                <Parameter MapOp="SELF" SumOp="SELF">
+                  <LiteralVal Val="5" />
+                </Parameter>
+              </Effect>
+            </Effects>
+          </LocalEffect>
+          <DynamicNewsItem>false</DynamicNewsItem>
+        </Outcome>
+      </Outcomes>
+    </GameEvent>
+    <GameEvent Tutorial="false" Debug="false" RecentEventCounter="2" ResetRecentEventCounter="true" Name="精神问题" Editable="HIDDEN" Scenarios="ALL" Limit="1">
+      <TypeCondition>
+        <Type>VIRUS</Type>
+      </TypeCondition>
+      <DiseaseCondition>
+        
+        
+        <Conditions>
+          <Cond CombineOp="GREATER_THAN" MapOp="SELF" SumOp="SELF">
+            <Cond Target="DISEASE" MapOp="SELF" SumOp="SELF">
+              <FieldVal Field="turnNumber" Op="SET" />
+            </Cond>
+            <Cond CombineOp="PLUS" MapOp="SELF" SumOp="SELF">
+              <Cond Target="DISEASE" MapOp="SELF" SumOp="SELF">
+                <FieldVal Field="customGlobalVariable1" Op="SET" />
+              </Cond>
+              <Cond MapOp="SELF" SumOp="SELF">
+                <RandomVal IsFloat="false" Min="36" Max="49" />
+              </Cond>
+            </Cond>
+          </Cond>
+          <Cond CombineOp="AND" MapOp="SELF" SumOp="SELF">
+            <Cond MapOp="SELF" SumOp="SELF">
+              <TechVal isTriggered="false" tech="drug_resistance_2" />
+            </Cond>
+          </Cond>
+          <Cond CombineOp="AND" MapOp="SELF" SumOp="SELF">
+            <Cond MapOp="SELF" SumOp="SELF">
+              <EventVal isTriggered="true" event="贫困国家暴动" />
+            </Cond>
+            <Cond MapOp="SELF" SumOp="SELF">
+              <EventVal isTriggered="false" event="富裕国家进行核威慑" />
+            </Cond>
+          </Cond>
+        </Conditions>
+      </DiseaseCondition>
+      <LocalCondition>
+        <Conditions>
+          <Cond CombineOp="EQUALS" MapOp="SELF" SumOp="SELF">
+            <Cond Target="COUNTRY" MapOp="SELF" SumOp="SELF">
+              <FieldVal Field="importance" Op="SET" />
+            </Cond>
+            <Cond MapOp="SELF" SumOp="SELF">
+              <LiteralVal Val="1.25" />
+            </Cond>
+          </Cond>
+        </Conditions>
+      </LocalCondition>
+      <Outcomes>
+        <Outcome LogicalOp="ALWAYS">
+          <LocalEffect>
+            <Effects />
+          </LocalEffect>
+          <PopupIcon>earthquake</PopupIcon>
+          <PopupTitle OnlyIfNotNoticed="false">%C发现暴乱原因<useLocalisation>true</useLocalisation></PopupTitle>
+          <PopupMessage OnlyIfNotNoticed="false">%C发现真实暴乱原因，是因为%D会引发严重性癫狂症，%C表示会致力于研发%D的解药。<useLocalisation>true</useLocalisation></PopupMessage>
+          <NewsMessage OnlyIfNotNoticed="false"><useLocalisation>true</useLocalisation></NewsMessage>
+          <DynamicNewsItem>false</DynamicNewsItem>
+          <NewsPriority>1</NewsPriority>
+        </Outcome>
+        <Outcome LogicalOp="ALWAYS">
+          <LocalEffect>
+            <Effects>
+              <Effect MapOp="SELF" Target="LOCALDISEASE" Field="cureResearchAllocation" Op="PLUS">
+                <Parameter MapOp="SELF" SumOp="SELF">
+                  <LiteralVal Val="0.3" />
+                </Parameter>
+              </Effect>
+            </Effects>
+          </LocalEffect>
+          <DynamicNewsItem>false</DynamicNewsItem>
+        </Outcome>
+      </Outcomes>
+    </GameEvent>
+    <GameEvent Tutorial="false" Debug="false" RecentEventCounter="0" ResetRecentEventCounter="true" Name="解药受挫" Editable="HIDDEN" Scenarios="ALL" Limit="1">
+      <TypeCondition>
+        <Type>VIRUS</Type>
+      </TypeCondition>
+      <DiseaseCondition>
+        
+        
+        <Conditions>
+          <Cond CombineOp="AND" MapOp="SELF" SumOp="SELF">
+            <Cond MapOp="SELF" SumOp="SELF">
+              <EventVal isTriggered="true" event="相似性" />
+            </Cond>
+          </Cond>
+          <Cond CombineOp="GREATER_THAN" MapOp="SELF" SumOp="SELF">
+            <Cond CombineOp="PLUS" MapOp="SELF" SumOp="SELF">
+              <Cond Target="DISEASE" MapOp="SELF" SumOp="SELF">
+                <FieldVal Field="globalInfectedPerc" Op="SET" />
+              </Cond>
+              <Cond Target="DISEASE" MapOp="SELF" SumOp="SELF">
+                <FieldVal Field="globalDeadPerc" Op="SET" />
+              </Cond>
+            </Cond>
+            <Cond MapOp="SELF" SumOp="SELF">
+              <LiteralVal Val="0.45" />
+            </Cond>
+          </Cond>
+          <Cond CombineOp="GREATER_THAN" MapOp="SELF" SumOp="SELF">
+            <Cond MapOp="SELF" SumOp="SELF">
+              <LiteralVal Val="93" />
+            </Cond>
+            <Cond MapOp="SELF" SumOp="SELF">
+              <RandomVal IsFloat="false" Min="1" Max="100" />
+            </Cond>
+          </Cond>
+        </Conditions>
+      </DiseaseCondition>
+      <Outcomes>
+        <Outcome LogicalOp="ALWAYS">
+          <LocalEffect>
+            <Effects />
+          </LocalEffect>
+          <PopupIcon>popup_infected</PopupIcon>
+          <PopupTitle OnlyIfNotNoticed="false">解药研发受挫<useLocalisation>true</useLocalisation></PopupTitle>
+          <PopupMessage OnlyIfNotNoticed="false">世界卫生组织表示埃博拉的研究方向完全错误！解药研发压力大幅度增加！<useLocalisation>true</useLocalisation></PopupMessage>
+          <NewsMessage OnlyIfNotNoticed="false"><useLocalisation>true</useLocalisation></NewsMessage>
+          <DynamicNewsItem>false</DynamicNewsItem>
+          <NewsPriority>1</NewsPriority>
+        </Outcome>
+        <Outcome LogicalOp="ALWAYS">
+          <LocalEffect>
+            <Effects>
+              <Effect MapOp="SELF" Target="DISEASE" Field="cureBaseMultiplier" Op="PLUS">
+                <Parameter MapOp="SELF" SumOp="SELF">
+                  <LiteralVal Val="0.35" />
+                </Parameter>
+              </Effect>
+            </Effects>
+          </LocalEffect>
+          <DynamicNewsItem>false</DynamicNewsItem>
+        </Outcome>
+      </Outcomes>
+    </GameEvent>
+    <GameEvent Tutorial="false" Debug="false" RecentEventCounter="8" ResetRecentEventCounter="true" Name="解药研发加快" Editable="HIDDEN" Scenarios="ALL" Limit="1">
+      <TypeCondition>
+        <Type>VIRUS</Type>
+      </TypeCondition>
+      <DiseaseCondition>
+        
+        
+        <Conditions>
+          <Cond CombineOp="AND" MapOp="SELF" SumOp="SELF">
+            <Cond MapOp="SELF" SumOp="SELF">
+              <EventVal isTriggered="false" event="解药受挫" />
+            </Cond>
+          </Cond>
+          <Cond CombineOp="GREATER_THAN" MapOp="SELF" SumOp="SELF">
+            <Cond CombineOp="PLUS" MapOp="SELF" SumOp="SELF">
+              <Cond Target="DISEASE" MapOp="SELF" SumOp="SELF">
+                <FieldVal Field="globalDeadPerc" Op="SET" />
+              </Cond>
+              <Cond Target="DISEASE" MapOp="SELF" SumOp="SELF">
+                <FieldVal Field="globalInfectedPerc" Op="SET" />
+              </Cond>
+            </Cond>
+            <Cond MapOp="SELF" SumOp="SELF">
+              <LiteralVal Val="0.5" />
+            </Cond>
+          </Cond>
+        </Conditions>
+      </DiseaseCondition>
+      <Outcomes>
+        <Outcome LogicalOp="ALWAYS">
+          <LocalEffect>
+            <Effects />
+          </LocalEffect>
+          <PopupIcon>event_syringe</PopupIcon>
+          <PopupTitle OnlyIfNotNoticed="false">解药研发结果喜人！<useLocalisation>true</useLocalisation></PopupTitle>
+          <PopupMessage OnlyIfNotNoticed="false">世界卫生组织表示%D与埃博拉病毒存在极大相似性，目前已经明确了研究方向，解药研发完成指日可待！<useLocalisation>true</useLocalisation></PopupMessage>
+          <NewsMessage OnlyIfNotNoticed="false"><useLocalisation>true</useLocalisation></NewsMessage>
+          <DynamicNewsItem>false</DynamicNewsItem>
+          <NewsPriority>1</NewsPriority>
+        </Outcome>
+        <Outcome LogicalOp="ALWAYS">
+          <LocalEffect>
+            <Effects>
+              <Effect MapOp="SELF" Target="DISEASE" Field="researchInefficiencyMultiplier" Op="MINUS">
+                <Parameter MapOp="SELF" SumOp="SELF">
+                  <LiteralVal Val="0.1" />
+                </Parameter>
+              </Effect>
+            </Effects>
+          </LocalEffect>
+          <DynamicNewsItem>false</DynamicNewsItem>
+        </Outcome>
+      </Outcomes>
+    </GameEvent>
+    <GameEvent Tutorial="false" Debug="false" RecentEventCounter="8" ResetRecentEventCounter="true" Name="贫困国家暴动" Editable="HIDDEN" Scenarios="ALL" Limit="1">
+      <TypeCondition>
+        <Type>VIRUS</Type>
+      </TypeCondition>
+      <DiseaseCondition>
+        
+        
+        <Conditions>
+          <Cond CombineOp="LESS_THAN" MapOp="SELF" SumOp="SELF">
+            <Cond Target="DISEASE" MapOp="SELF" SumOp="SELF">
+              <FieldVal Field="turnNumber" Op="SET" />
+            </Cond>
+            <Cond MapOp="SELF" SumOp="SELF">
+              <LiteralVal Val="105" />
+            </Cond>
+          </Cond>
+          <Cond CombineOp="AND" MapOp="SELF" SumOp="SELF">
+            <Cond MapOp="SELF" SumOp="SELF">
+              <TechVal isTriggered="true" tech="53f680d1-513b-4ea6-828a-f2fa71fddb53" />
+            </Cond>
+            <Cond MapOp="SELF" SumOp="SELF">
+              <TechVal isTriggered="false" tech="air_1" />
+            </Cond>
+          </Cond>
+          <Cond CombineOp="LESS_THAN" MapOp="SELF" SumOp="SELF">
+            <Cond Target="DISEASE" MapOp="SELF" SumOp="SELF">
+              <FieldVal Field="globalDeadPerc" Op="SET" />
+            </Cond>
+            <Cond MapOp="SELF" SumOp="SELF">
+              <LiteralVal Val="0.15" />
+            </Cond>
+          </Cond>
+        </Conditions>
+      </DiseaseCondition>
+      <Outcomes>
+        <Outcome LogicalOp="ALWAYS">
+          <LocalEffect>
+            <Effects />
+          </LocalEffect>
+          <PopupIcon>popup_soldier_red</PopupIcon>
+          <PopupTitle OnlyIfNotNoticed="false">贫困国家暴动<useLocalisation>true</useLocalisation></PopupTitle>
+          <PopupMessage OnlyIfNotNoticed="false">由于%D疫情，贫困国家不满富裕国家的不与理睬，发起了大规模暴动！<useLocalisation>true</useLocalisation></PopupMessage>
+          <NewsMessage OnlyIfNotNoticed="false"><useLocalisation>true</useLocalisation></NewsMessage>
+          <DynamicNewsItem>false</DynamicNewsItem>
+          <NewsPriority>1</NewsPriority>
+        </Outcome>
+        <Outcome LogicalOp="ALWAYS">
+          <LocalEffect>
+            <Effects>
+              <Effect MapOp="SELF" Target="DISEASE" Field="globalLethalityMax" Op="PLUS">
+                <Parameter MapOp="SELF" SumOp="SELF">
+                  <LiteralVal Val="6" />
+                </Parameter>
+              </Effect>
+            </Effects>
+          </LocalEffect>
+          <DynamicNewsItem>false</DynamicNewsItem>
+        </Outcome>
+        <Outcome LogicalOp="ALWAYS">
+          <LocalEffect>
+            <Effects>
+              <Effect MapOp="SELF" Target="DISEASE" Field="customGlobalVariable1" Op="SET">
+                <Parameter Target="DISEASE" MapOp="SELF" SumOp="SELF">
+                  <FieldVal Field="turnNumber" Op="SET" />
+                </Parameter>
+              </Effect>
+            </Effects>
+          </LocalEffect>
+          <DynamicNewsItem>false</DynamicNewsItem>
+        </Outcome>
+      </Outcomes>
+    </GameEvent>
+    <GameEvent Tutorial="false" Debug="false" RecentEventCounter="5" ResetRecentEventCounter="true" Name="零号病人寻找" Editable="HIDDEN" Scenarios="ALL" Limit="1">
+      <TypeCondition>
+        <Type>VIRUS</Type>
+      </TypeCondition>
+      <DiseaseCondition>
+        
+        
+        <Conditions>
+          <Cond CombineOp="AND" MapOp="SELF" SumOp="SELF">
+            <Cond MapOp="SELF" SumOp="SELF">
+              <EventVal isTriggered="true" event="解药受挫" />
+            </Cond>
+          </Cond>
+          <Cond CombineOp="GREATER_THAN" MapOp="SELF" SumOp="SELF">
+            <Cond MapOp="SELF" SumOp="SELF">
+              <LiteralVal Val="25" />
+            </Cond>
+            <Cond MapOp="SELF" SumOp="SELF">
+              <RandomVal IsFloat="false" Min="1" Max="50" />
+            </Cond>
+          </Cond>
+        </Conditions>
+      </DiseaseCondition>
+      <Outcomes>
+        <Outcome LogicalOp="ALWAYS">
+          <LocalEffect>
+            <Effects />
+          </LocalEffect>
+          <PopupIcon>popup_infected</PopupIcon>
+          <PopupTitle OnlyIfNotNoticed="false">世界卫生组织称已找到零号病人<useLocalisation>true</useLocalisation></PopupTitle>
+          <PopupMessage OnlyIfNotNoticed="false">世界卫生组织称已经找到零号病人！这将大幅度加快解药研发速度！<useLocalisation>true</useLocalisation></PopupMessage>
+          <NewsMessage OnlyIfNotNoticed="false"><useLocalisation>true</useLocalisation></NewsMessage>
+          <DynamicNewsItem>false</DynamicNewsItem>
+          <NewsPriority>1</NewsPriority>
+        </Outcome>
+        <Outcome LogicalOp="ALWAYS">
+          <LocalEffect>
+            <Effects>
+              <Effect MapOp="SELF" Target="DISEASE" Field="researchInefficiencyMultiplier" Op="MINUS">
+                <Parameter MapOp="SELF" SumOp="SELF">
+                  <LiteralVal Val="0.15" />
+                </Parameter>
+              </Effect>
+            </Effects>
+          </LocalEffect>
+          <DynamicNewsItem>false</DynamicNewsItem>
+        </Outcome>
+      </Outcomes>
+    </GameEvent>
+  </GameEvents>
+</Data>

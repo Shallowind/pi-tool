@@ -1,14 +1,12 @@
 package com.zmmxkid.pitool;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -16,8 +14,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -25,9 +23,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import static com.zmmxkid.pitool.MainActivity.randomNumber;
+
 public class Overall extends AppCompatActivity {
     private String qq;
-    private ImageView imageView5;
+    private DiagonalCutImageView imageView5;
     private TextView textview24, textview13, textview29, textview32, textview25;
     private TextView all1, lilun1, sanxing1, hege1, tongguan1, zongji1;
     private TextView[] allTextViews = new TextView[18];
@@ -46,7 +46,29 @@ public class Overall extends AppCompatActivity {
         setContentView(R.layout.activity_overall);
         qq = getIntent().getStringExtra("qq");
         LinearLayout linearLayout = findViewById(R.id.screenlay2);
-
+        ConstraintLayout backLayout = findViewById(R.id.background); // 假设你有一个 LinearLayout 用作背景
+        // 根据随机数选择相应的图片
+        switch (randomNumber) {
+            case 1:
+                backLayout.setBackgroundResource(R.drawable.img11);
+                break;
+            case 2:
+                backLayout.setBackgroundResource(R.drawable.img22);
+                break;
+            case 3:
+                backLayout.setBackgroundResource(R.drawable.img33);
+                break;
+            case 4:
+                backLayout.setBackgroundResource(R.drawable.img44);
+                break;
+            case 5:
+                backLayout.setBackgroundResource(R.drawable.img55);
+                break;
+            default:
+                // 默认处理
+                backLayout.setBackgroundResource(R.drawable.img11); // 如果发生异常，设置 img1
+                break;
+        }
 // 获取屏幕尺寸
         WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         Display display = windowManager.getDefaultDisplay();
@@ -75,7 +97,6 @@ public class Overall extends AppCompatActivity {
             targetHeight = screenHeight;
             targetWidth = (int) (targetHeight * targetAspectRatio);
         }
-
 
 
 // 设置 LinearLayout 的布局参数
@@ -107,8 +128,8 @@ public class Overall extends AppCompatActivity {
             zongjiTextViews[i] = findViewById(getResources().getIdentifier("zongji" + (i + 2), "id", getPackageName()));
         }
 
-        new DownloadImageTask().execute("https://q.qlogo.cn/g?b=qq&nk=" + qq + "&s=100");
-        new DownloadFileTask().execute("http://47.241.0.156:34567/WebAPI/public/Overalls/" + qq + ".txt");
+        new DownloadImageTask().execute("https://q.qlogo.cn/g?b=qq&nk=" + qq + "&s=640");
+        new DownloadFileTask().execute("http://47.93.57.125:521/WebAPI/public/Overalls/" + qq + ".txt");
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
@@ -174,7 +195,7 @@ public class Overall extends AppCompatActivity {
             String[] firstRowData = lines[0].split(",");
             textview24.setText(firstRowData[0]);
             textview13.setText(firstRowData[1]);
-            double potentialValue=Double.parseDouble(firstRowData[1]);
+            double potentialValue = Double.parseDouble(firstRowData[1]);
             if (potentialValue < 0.1) {
                 textview13.setBackgroundResource(R.drawable.rating_off);
             } else if (potentialValue >= 0.1 && potentialValue < 3.5) {
@@ -191,10 +212,14 @@ public class Overall extends AppCompatActivity {
                 textview13.setBackgroundResource(R.drawable.rating_6);
             } else if (potentialValue >= 12.5 && potentialValue < 13) {
                 textview13.setBackgroundResource(R.drawable.rating_7);
-            } else if (potentialValue >= 13) {
+            } else if (potentialValue >= 13 && potentialValue < 13.5) {
                 textview13.setBackgroundResource(R.drawable.rating_9);
+                textview13.setShadowLayer(2, 0, 0, Color.rgb(255, 215, 0));
+            } else if (potentialValue >= 13.5) {
+                textview13.setBackgroundResource(R.drawable.rating_10);
+                textview13.setShadowLayer(2, 0, 0, Color.rgb(138, 43, 226));
             }
-            textview29.setText("总分："+firstRowData[2]);
+            textview29.setText("总分：" + firstRowData[2]);
             textview32.setText(firstRowData[4]);
             textview25.setText(qq);
 
@@ -213,9 +238,10 @@ public class Overall extends AppCompatActivity {
             for (int i = 1; i < 18 && i < lines.length; i++) {
                 String[] rowData = lines[i].split(",");
                 if (rowData.length >= 6) {
-                    allTextViews[i - 1].setText("【"+rowData[0]+"】");
-                    if(i==1||i==3||i==5||i==7||i==8)allTextViews[i - 1].setText("【 "+rowData[0]+" 】");
-                    if(i>8&&i<18)allTextViews[i - 1].setText("【  "+rowData[0]+"  】");
+                    allTextViews[i - 1].setText("【" + rowData[0] + "】");
+                    if (i == 1 || i == 3 || i == 5 || i == 7 || i == 8)
+                        allTextViews[i - 1].setText("【 " + rowData[0] + " 】");
+                    if (i > 8 && i < 18) allTextViews[i - 1].setText("【  " + rowData[0] + "  】");
                     lilunTextViews[i - 1].setText(rowData[1]);
                     sanxingTextViews[i - 1].setText(rowData[2]);
                     hegeTextViews[i - 1].setText(rowData[3]);
@@ -246,8 +272,8 @@ public class Overall extends AppCompatActivity {
 
                 int lilunValue = Integer.parseInt((String) lilun.getText());
                 int zongjiValue = Integer.parseInt((String) zongji.getText());
-                if(zongjiValue==0){
-                    zongjiValue=1;
+                if (zongjiValue == 0) {
+                    zongjiValue = 1;
                 }
 
                 LinearLayout.LayoutParams yellowLayoutParams = (LinearLayout.LayoutParams) yellow.getLayoutParams();
@@ -271,14 +297,13 @@ public class Overall extends AppCompatActivity {
 
                 int grayValue = zongjiValue - Integer.parseInt((String) tongguan.getText());
                 LinearLayout.LayoutParams grayLayoutParams = (LinearLayout.LayoutParams) gray.getLayoutParams();
-                if(zongjiValue==0){
-                    grayValue=1;
-                    zongjiValue=1;
+                if (zongjiValue == 0) {
+                    grayValue = 1;
+                    zongjiValue = 1;
                 }
                 grayLayoutParams.weight = (float) grayValue / zongjiValue;
                 gray.setLayoutParams(grayLayoutParams);
             }
-
         }
     }
 }

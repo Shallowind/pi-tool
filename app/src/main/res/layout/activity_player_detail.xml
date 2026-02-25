@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/root_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_color">
+
+
+    <!-- 玩家信息卡片 -->
+    <com.google.android.material.card.MaterialCardView
+            android:id="@+id/player_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            app:cardBackgroundColor="@color/card_background"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+            <!-- 排名徽章（右上角） -->
+            <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/rank_badge"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    app:cardCornerRadius="30dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                        android:id="@+id/tv_rank_badge_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="#--"
+                        android:textColor="@color/text_primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 头像 -->
+            <ImageView
+                    android:id="@+id/iv_avatar"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:padding="2dp"
+                    android:background="@drawable/circle_border"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- 用户名 -->
+            <TextView
+                    android:id="@+id/tv_user_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="玩家名称"
+                    android:textColor="@color/text_primary"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@id/rank_badge"
+                    app:layout_constraintStart_toEndOf="@id/iv_avatar"
+                    app:layout_constraintTop_toTopOf="@id/iv_avatar" />
+
+            <!-- QQ号 -->
+            <TextView
+                    android:id="@+id/tv_qq"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:text="QQ: --"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@id/iv_avatar"
+                    app:layout_constraintTop_toBottomOf="@id/tv_user_name" />
+
+            <!-- 总积分 -->
+            <TextView
+                    android:id="@+id/tv_total_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="总积分: --"
+                    android:textColor="@color/ptt_blue"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/iv_avatar"
+                    app:layout_constraintTop_toBottomOf="@id/tv_qq" />
+
+            <!-- 总排名 -->
+            <TextView
+                    android:id="@+id/tv_total_rank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:text="总排名: --"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@id/iv_avatar"
+                    app:layout_constraintTop_toBottomOf="@id/tv_total_score" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- 场景列表 -->
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_scenes"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:clipToPadding="false"
+            android:paddingBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/player_card" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

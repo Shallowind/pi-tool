@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="3dp"
+        android:layout_marginVertical="3dp"
+        app:cardBackgroundColor="@color/card_background"
+        app:strokeColor="@color/card_stroke"
+        app:strokeWidth="0.5dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp"
+        android:descendantFocusability="blocksDescendants">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="9dp">
+
+        <!-- 左侧序号和状态 -->
+        <LinearLayout
+                android:id="@+id/left_info"
+                android:orientation="vertical"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                    android:id="@+id/text6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="0010"
+                    android:textSize="13sp"
+                    android:textColor="@color/text_secondary"
+                    android:textStyle="bold"/>
+
+            <TextView
+                    android:id="@+id/text7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="无"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_tertiary"
+                    android:textStyle="bold"/>
+        </LinearLayout>
+
+        <!-- 场景图标 -->
+        <com.zmmxkid.pitool.DiagonalCutImageView
+                android:id="@+id/icon"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="8dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toEndOf="@id/left_info"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:cutRatio="0.2"
+        />
+
+        <!-- 右侧信息区 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                app:layout_constraintStart_toEndOf="@id/icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+            <!-- 第一行：难度标签 + 场景名(Spinner) -->
+            <TextView
+                    android:id="@+id/text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:textColor="@color/text_primary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="22dp"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:popupBackground="@drawable/spinner_popup_background"
+                    android:dropDownWidth="wrap_content"
+                    android:dropDownVerticalOffset="8dp"
+                    android:spinnerMode="dropdown"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="5dp"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    app:layout_constraintStart_toEndOf="@id/text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/text"
+                    app:layout_constraintBottom_toBottomOf="@id/text"/>
+            <!-- 第二行：分倍率 | 作者 -->
+            <TextView
+                    android:id="@+id/text2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="分倍率：1.0"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_secondary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/text3"
+                    app:layout_constraintTop_toBottomOf="@id/text"
+                    app:layout_constraintHorizontal_weight="1"/>
+
+            <TextView
+                    android:id="@+id/text3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="By 作者"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_secondary"
+                    app:layout_constraintStart_toEndOf="@id/text2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/text2"
+                    app:layout_constraintHorizontal_weight="1"/>
+
+            <!-- 第三行：特性 | 包 -->
+            <TextView
+                    android:id="@+id/text4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="特性"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_tertiary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/text5"
+                    app:layout_constraintTop_toBottomOf="@id/text2"
+                    app:layout_constraintHorizontal_weight="1"/>
+
+            <TextView
+                    android:id="@+id/text5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="包：NULL"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_tertiary"
+                    app:layout_constraintStart_toEndOf="@id/text4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/text4"
+                    app:layout_constraintHorizontal_weight="1"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

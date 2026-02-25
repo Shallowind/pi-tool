@@ -1,433 +1,241 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:id="@+id/background"
+        android:background="@color/bg_main">
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5" />
-
-        <TextView
+    <!-- 标题 -->
+    <TextView
             android:id="@+id/textView8"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_gravity="center"
-            android:layout_margin="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="主游戏得分计算器"
-            android:textSize="20sp" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout8"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="6"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1.5">
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <Spinner
-                    android:id="@+id/spinner2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <Spinner
-                    android:id="@+id/spinner3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="3">
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/curetext"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="解药" />
-
-                <EditText
-                    android:id="@+id/editcuretext"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:text="0.15" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="3">
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/daytext"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="天数" />
-
-                <EditText
-                    android:id="@+id/editdaytext"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:text="275" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="3">
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/dnatext"
-                    android:layout_width="29dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="剩余DNA" />
-
-                <EditText
-                    android:id="@+id/editdnatext"
-                    android:layout_width="12dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:text="25" />
-
-                <TextView
-                    android:id="@+id/dnahua"
-                    android:layout_width="47dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="花费DNA" />
-
-                <EditText
-                    android:id="@+id/editdnahua"
-                    android:layout_width="46dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:text="210" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="3">
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/yellowtext"
-                    android:layout_width="28dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="严重性" />
-
-                <EditText
-                    android:id="@+id/edityellowtext"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:text="45" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="3">
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/dietext"
-                    android:layout_width="28dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="死亡比例" />
-
-                <EditText
-                    android:id="@+id/editdietext"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:text="1" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/button7"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="3"
-                android:onClick="jisuan1"
-                android:text="计算" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:text="您的得分为：" />
-
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="25sp" />
+            android:text="得分计算器"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="24dp"/>
 
+    <!-- Tab 切换容器（替代原来的切换按钮） -->
+    <LinearLayout
+            android:id="@+id/backlayout"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            android:padding="4dp"
+            android:background="@drawable/bg_tab_container"
+            app:layout_constraintTop_toBottomOf="@id/textView8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="24dp">
+
+        <!-- 主游戏 Tab（沿用 qiehuan id，逻辑不改） -->
         <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_gravity="center"
-            android:layout_margin="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="场景得分计算器"
-            android:textSize="20sp" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout10"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <Space
-                android:layout_width="wrap_content"
+                android:id="@+id/qiehuan"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="天数" />
+                android:text="场景"
+                android:textStyle="bold"
+                android:textColor="@color/tab_text_inactive"
+                android:background="@drawable/bg_tab_active"
+                android:onClick="onTabClick"/>
 
-            <EditText
-                android:id="@+id/editTextText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="text"
-                android:text="275" />
-
-            <Space
-                android:layout_width="wrap_content"
+        <!-- 场景 Tab -->
+        <TextView
+                android:id="@+id/textView2"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout9"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="解药" />
-
-            <EditText
-                android:id="@+id/editTextText2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="text"
-                android:text="0.15" />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout7"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="31dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="0dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="分倍率" />
-
-            <EditText
-                android:id="@+id/editTextText3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="text"
-                android:text="0.1" />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.8"
-            android:onClick="jisuan"
-            android:text="计算" />
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:text="您的得分为：" />
-
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:text=""
-            android:textSize="25sp" />
+                android:text="主游戏"
+                android:textStyle="bold"
+                android:onClick="onTabClick"
+                android:textColor="@color/tab_text_active"/>
     </LinearLayout>
+
+    <!-- 卡片主体 -->
+
+
+    <!-- 可滚动内容区域 -->
+    <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="24dp"
+            android:fillViewport="true"
+            app:layout_constraintTop_toBottomOf="@id/backlayout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <!-- ===== 主游戏区域 ===== -->
+            <LinearLayout
+                    android:id="@+id/linearLayout8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="12dp">
+
+                    <Spinner
+                            android:id="@+id/spinner2"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:background="@drawable/spinner_background"
+                            android:popupBackground="@drawable/spinner_popup_background"
+                            android:layout_weight="1"/>
+
+                    <Spinner
+                            android:id="@+id/spinner3"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:background="@drawable/spinner_background"
+                            android:popupBackground="@drawable/spinner_popup_background"
+                            android:layout_weight="1"
+                            android:layout_marginStart="12dp"/>
+                </LinearLayout>
+
+                <EditText
+                        android:id="@+id/editcuretext"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:background="@drawable/bg_input"
+                        android:hint="解药进度 如：0.15"
+                        android:inputType="numberDecimal"
+                        android:paddingHorizontal="16dp"
+                        android:layout_marginBottom="12dp"/>
+
+                <EditText
+                        android:id="@+id/editdaytext"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:background="@drawable/bg_input"
+                        android:hint="天数 如：275"
+                        android:inputType="number"
+                        android:paddingHorizontal="16dp"
+                        android:layout_marginBottom="12dp"/>
+
+                <EditText
+                        android:id="@+id/editdnatext"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:background="@drawable/bg_input"
+                        android:hint="剩余 DNA 如：25"
+                        android:inputType="number"
+                        android:paddingHorizontal="16dp"
+                        android:layout_marginBottom="12dp"/>
+
+                <EditText
+                        android:id="@+id/editdnahua"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:background="@drawable/bg_input"
+                        android:hint="花费 DNA 如：210"
+                        android:inputType="number"
+                        android:paddingHorizontal="16dp"
+                        android:layout_marginBottom="12dp"/>
+
+                <EditText
+                        android:id="@+id/edityellowtext"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:background="@drawable/bg_input"
+                        android:hint="严重性 如：45"
+                        android:inputType="number"
+                        android:paddingHorizontal="16dp"
+                        android:layout_marginBottom="12dp"/>
+
+                <EditText
+                        android:id="@+id/editdietext"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:background="@drawable/bg_input"
+                        android:hint="死亡比例 如：100"
+                        android:inputType="number"
+                        android:paddingHorizontal="16dp"
+                        android:layout_marginBottom="16dp"/>
+            </LinearLayout>
+
+            <!-- ===== 场景区域 ===== -->
+            <LinearLayout
+                    android:id="@+id/linearLayoutsc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <EditText
+                        android:id="@+id/editTextText"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:background="@drawable/bg_input"
+                        android:hint="天数 如：275"
+                        android:inputType="number"
+                        android:paddingHorizontal="16dp"
+                        android:layout_marginTop="24dp"/>
+
+                <EditText
+                        android:id="@+id/editTextText2"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:background="@drawable/bg_input"
+                        android:hint="解药进度 如：0.15"
+                        android:inputType="numberDecimal"
+                        android:paddingHorizontal="16dp"
+                        android:layout_marginTop="12dp"/>
+
+                <EditText
+                        android:id="@+id/editTextText3"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:background="@drawable/bg_input"
+                        android:hint="分倍率 如：0.1"
+                        android:inputType="numberSigned|numberDecimal"
+                        android:paddingHorizontal="16dp"
+                        android:layout_marginTop="12dp"/>
+            </LinearLayout>
+
+            <!-- 结果区域 -->
+            <LinearLayout
+                    android:id="@+id/linearLayoutall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="24dp">
+
+                <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="您的得分为："
+                        android:textColor="@color/text_secondary"
+                        android:layout_marginTop="24dp"/>
+
+                <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_primary"
+                        android:layout_marginTop="8dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

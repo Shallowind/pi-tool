@@ -1,0 +1,48 @@
+<resources>
+    <!-- 页面背景 -->
+<!--    <color name="bg_main">#121212</color>-->
+
+    <!-- 文字颜色 -->
+    <color name="text_main">#FFFFFF</color>
+    <color name="text_secondary">#BBBBBB</color>
+
+    <!-- 页面背景 -->
+    <color name="bg_main">#0F172A</color>
+
+    <!-- 卡片 -->
+    <color name="card_bg">#CC1E293B</color>
+
+    <!-- 输入框 -->
+    <color name="input_bg">#20242C</color>
+
+    <!-- 文字 -->
+    <color name="text_primary">#E5E7EB</color>
+
+    <!-- Tab -->
+    <color name="tab_bg">#1E293B</color>
+    <color name="tab_active_bg">#334155</color>
+    <color name="tab_text_active">#FFFFFF</color>
+    <color name="tab_text_inactive">#94A3B8</color>
+
+    <!-- 按钮：半透明白色 -->
+    <color name="button_normal">#33FFFFFF</color>
+    <color name="button_pressed">#55FFFFFF</color>
+    <!-- 深色背景 -->
+    <color name="background_color">#121212</color>
+
+    <!-- 深色卡片背景（Material Design Elevated Surface） -->
+    <color name="card_background">#801E1E1E</color>
+    <color name="card_stroke">#333333</color>
+    <color name="pop_background">#1E1E1E</color>
+    <color name="pop_stroke">#333333</color>
+    <!-- 深色文字（高对比度） -->
+    <color name="text_tertiary">#808080</color>
+    <color name="text_hint">#666666</color>
+    <color name="text_def">#FFFFFF</color>
+
+    <!-- 功能色保持鲜艳 -->
+    <color name="ptt_blue">#4FC3F7</color>
+    <color name="positive_green">#69F0AE</color>
+    <color name="negative_red">#FF8A80</color>
+
+</resources>

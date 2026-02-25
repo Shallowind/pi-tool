@@ -4,14 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".gonglue">
+    tools:context=".shuju">
 
-    <WebView
-        android:id="@+id/webview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <WebView
+                android:id="@+id/webview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

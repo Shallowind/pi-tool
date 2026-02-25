@@ -16,5 +16,53 @@
     <color name="pink">#FFC0CB</color>
     <color name="brown">#A52A2A</color>
     <color name="teal">#008080</color>
+    <!-- 页面背景 -->
+    <color name="bg_main">#F5F6FA</color>
+
+    <!-- 卡片背景：白色 + 90% 不透明 -->
+    <color name="card_bg">#80FFFFFF</color>
+
+    <!-- 文字颜色 -->
+    <color name="text_main">#1A1A1A</color>
+    <color name="text_secondary">#666666</color>
+
+    <!-- 输入框 -->
+    <color name="input_bg">#F1F5F9</color>
+
+    <!-- 文字 -->
+    <color name="text_primary">#0F172A</color>
+
+    <!-- Tab -->
+    <color name="tab_bg">#E5E7EB</color>
+    <color name="tab_active_bg">#FFFFFF</color>
+    <color name="tab_text_active">#111827</color>
+    <color name="tab_text_inactive">#6B7280</color>
+
+    <!-- 按钮：半透明浅黄色 -->
+    <color name="button_normal">#80FFF3B0</color>
+    <color name="button_pressed">#A0FFF3B0</color>
+
+    <!-- 背景 -->
+    <color name="background_color">#f0f2f5</color>
+
+    <!-- 卡片背景 -->
+    <color name="card_background">#80FFFFFF</color>
+    <color name="card_stroke">#E0E0E0</color>
+    <color name="pop_background">#FFFFFF</color>
+    <color name="pop_stroke">#E0E0E0</color>
+    <!-- 文字 -->
+    <color name="text_tertiary">#888888</color>
+    <color name="text_hint">#999999</color>
+    <color name="text_def">#000000</color>
+    <!-- 原有颜色保留 -->
+    <color name="ptt_blue">#00b8e6</color>
+    <color name="positive_green">#4CAF50</color>
+    <color name="negative_red">#F44336</color>
+    <color name="blue_500">#2196F3</color>
+    <color name="green_600">#43A047</color>
+    <color name="orange_600">#FB8C00</color>
+    <color name="purple_500">#9C27B0</color>
+    <color name="cyan_400">#26C6DA</color>
+    <color name="dark_surface">#1E1E1E</color>
 </resources>
 

@@ -29,7 +29,7 @@ import java.util.Map;
 public class scn extends Activity {
 
     private static final String TAG = "MainActivity";
-    private static final String TXT_URL = "http://47.241.0.156:34567/WebAPI/public/scenInfo/scenList.txt";
+    private static final String TXT_URL = "http://47.93.57.125:521/WebAPI/public/scenInfo/scenList.txt";
 
     private TableLayout tableLayout;
     private ViewGroup.LayoutParams originalTableLayoutParams;
@@ -250,6 +250,8 @@ public class scn extends Activity {
                 textView.setTextColor(getResources().getColor(R.color.blue)); // 设置蓝色
             } else if ("PRS".equals(cellContent)) {
                 textView.setTextColor(getResources().getColor(R.color.green)); // 设置绿色
+            } else if ("ETR".equals(cellContent)) {
+                textView.setTextColor(Color.parseColor("#ffaaff")); // 设置红色
             }
 
             tableRow.addView(textView);

@@ -3,11 +3,13 @@ package com.zmmxkid.pitool;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,9 +18,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import static com.zmmxkid.pitool.MainActivity.randomNumber;
+
 public class personview extends Activity {
 
-    private ImageView head;
+    private DiagonalCutImageView head;
     private String qq;
     private String name, PTT, allscore, Rating, level;
 
@@ -26,12 +30,34 @@ public class personview extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personview);
-
+        ConstraintLayout backLayout = findViewById(R.id.background); // 假设你有一个 LinearLayout 用作背景
+        // 根据随机数选择相应的图片
+        switch (randomNumber) {
+            case 1:
+                backLayout.setBackgroundResource(R.drawable.img11);
+                break;
+            case 2:
+                backLayout.setBackgroundResource(R.drawable.img22);
+                break;
+            case 3:
+                backLayout.setBackgroundResource(R.drawable.img33);
+                break;
+            case 4:
+                backLayout.setBackgroundResource(R.drawable.img44);
+                break;
+            case 5:
+                backLayout.setBackgroundResource(R.drawable.img55);
+                break;
+            default:
+                // 默认处理
+                backLayout.setBackgroundResource(R.drawable.img11); // 如果发生异常，设置 img1
+                break;
+        }
         head = findViewById(R.id.imageView);
         qq = getIntent().getStringExtra("qq");
 
-        String avatarUrl = "https://q.qlogo.cn/g?b=qq&nk=" + qq + "&s=100";
-        String txtUrl = "http://47.241.0.156:34567/WebAPI/public/Bests/" + qq + ".txt";
+        String avatarUrl = "https://q.qlogo.cn/g?b=qq&nk=" + qq + "&s=640";
+        String txtUrl = "http://47.93.57.125:521/WebAPI/public/Bests/" + qq + ".txt";
 
         new LoadImageTask().execute(avatarUrl);
         new ReadTextFileTask().execute(txtUrl);
@@ -127,8 +153,12 @@ public class personview extends Activity {
                 img.setImageResource(R.drawable.rating_6);
             }else if(Ptt >=12.5&&Ptt <13){
                 img.setImageResource(R.drawable.rating_7);
-            }else if(Ptt >=13){
+            }else if(Ptt >=13&&Ptt <13.5){
                 img.setImageResource(R.drawable.rating_9);
+                ptt.setShadowLayer(2, 0, 0, Color.rgb(255, 215, 0));
+            }else if(Ptt >=13.5){
+                img.setImageResource(R.drawable.rating_10);
+                ptt.setShadowLayer(2, 0, 0, Color.rgb(138, 43, 226));
             }
             // Use the parsed data here (name, PTT, allscore, Rating, level)
         }

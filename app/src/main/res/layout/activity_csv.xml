@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:id="@+id/thislayout"
+                android:layout_height="match_parent">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+            <Button
+                    android:id="@+id/button12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="导入.csv/.txt/.zip/.plagueinc文件"/>
+
+        </LinearLayout>
+
+        <ScrollView
+                android:id="@+id/scrollView3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="15">
+
+            <HorizontalScrollView
+                    android:id="@+id/horizontalScrollView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                <TableLayout
+                        android:id="@+id/tablelayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                </TableLayout>
+            </HorizontalScrollView>
+        </ScrollView>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+            <Button
+                    android:id="@+id/button11"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:text="缩小"/>
+
+            <Button
+                    android:id="@+id/button14"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:text="放大"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

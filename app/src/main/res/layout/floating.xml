@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:id="@+id/backlayout2"
+              android:orientation="vertical">
+
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="300dp"
+            android:background="#80FFFFFF"
+            android:id="@+id/backlayout"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <Button
+                        android:text="销毁窗口"
+                        android:layout_width="wrap_content"
+                        android:layout_height="37dp"
+                        android:id="@+id/button25"
+                        android:background="@drawable/select_button"
+                        android:layout_marginStart="15dp"
+                        android:onClick="sortbyid"
+                        android:layout_weight="1"/>
+
+                <Button
+                        android:text="使用"
+                        android:layout_width="wrap_content"
+                        android:layout_height="37dp"
+                        android:id="@+id/button26"
+                        android:layout_marginStart="15dp"
+                        android:background="@drawable/select_button"
+                        android:layout_marginEnd="15dp"
+                        android:onClick="sortbydingshu"
+                        android:layout_weight="1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <Button
+                        android:text="重命名"
+                        android:layout_width="wrap_content"
+                        android:layout_height="37dp"
+                        android:background="@drawable/select_button"
+                        android:id="@+id/button27"
+                        android:layout_marginStart="15dp"
+                        android:onClick="sortbyzuozhe"
+                        android:layout_weight="1"/>
+
+                <Button
+                        android:text="删除"
+                        android:layout_width="wrap_content"
+                        android:layout_height="37dp"
+                        android:id="@+id/button28"
+                        android:layout_marginStart="15dp"
+                        android:background="@drawable/select_button"
+                        android:layout_marginEnd="15dp"
+                        android:onClick="sortbybao"
+                        android:layout_weight="1"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <ListView
+                android:id="@+id/listView"
+                android:fastScrollEnabled="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingEnd="-5dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

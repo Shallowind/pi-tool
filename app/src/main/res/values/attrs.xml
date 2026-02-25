@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DiagonalCutImageView">
+        <!-- 切角比例，0.0=不切，0.5=切到中心，建议 0.1-0.3 -->
+        <attr name="cutRatio" format="float" />
+        <!-- 切面颜色（可选，如果你想让切口有颜色） -->
+        <attr name="cutEdgeColor" format="color" />
+        <!-- 切面线宽（dp） -->
+        <attr name="cutEdgeWidth" format="dimension" />
+    </declare-styleable>
+</resources>

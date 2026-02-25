@@ -1,181 +1,382 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp">
+        tools:context=".MainActivity">
 
-        <Space
+    <LinearLayout
+            android:id="@+id/backlayout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2.5"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <Space android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="2.5"/>
 
         <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            app:srcCompat="@mipmap/logo_round" />
+                android:id="@+id/imageView3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                app:srcCompat="@mipmap/logo_round" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:orientation="horizontal">
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:orientation="horizontal">
 
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
+            <Space android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"/>
 
             <TextView
-                android:id="@+id/textView"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:text="PI Tool"
-                android:textSize="40sp" />
+                    android:id="@+id/textView"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="PI Tool"
+                    android:textSize="40sp"
+                    android:textStyle="bold" />
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <Space
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="3" />
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                <!-- 切换按钮：使用原生安卓旋转图标 -->
+                <ImageButton
+                        android:id="@+id/button29"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginRight="25dp"
+                        android:background="@drawable/select_button"
+                        android:onClick="qiehuan"
+                        android:src="@android:drawable/ic_menu_rotate"
+                        android:scaleType="centerInside"
+                        android:padding="8dp"
+                        android:contentDescription="切换" />
 
                 <TextView
-                    android:id="@+id/textView20"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:text="v1.6.3正式版" />
+                        android:id="@+id/textView20"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="v4.2.0正式版"
+                        android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="15"
-            android:orientation="horizontal">
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="15"
+                android:orientation="horizontal">
 
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5" />
+            <Space android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="0.5"/>
 
             <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:orientation="vertical">
+                    android:id="@+id/linearLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:orientation="vertical">
 
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2" />
+                <!-- 🌐 联机大厅：左右对称图标，文字绝对居中 -->
 
-                <Button
-                    android:id="@+id/button4"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="3"
-                    android:onClick="chaxun"
-                    android:text="分数计算器" />
+                <Space android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="2"/>
 
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"/>
+                <!-- 🎮 主游戏功能 -->
+                <LinearLayout
+                        android:id="@+id/button2"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="3"
+                        android:background="@drawable/select_button"
+                        android:gravity="center"
+                        android:onClick="jisuanqi"
+                        android:orientation="horizontal"
+                        android:clickable="true"
+                        android:focusable="true">
 
-                <Button
-                    android:id="@+id/button6"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="3"
-                    android:onClick="personscore"
-                    android:text="个人成绩查询" />
+                    <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="🎮"
+                            android:textSize="20sp" />
 
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2" />
+                    <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
 
-                <Button
-                    android:id="@+id/button2"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="3"
-                    android:onClick="jisuanqi"
-                    android:text="全球排行" />
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="主游戏功能"
+                            android:textColor="@color/text_def"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2" />
+                    <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
 
-                <Button
-                    android:id="@+id/button3"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="3"
-                    android:onClick="scn"
-                    android:text="场景库信息" />
+                    <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="🎮"
+                            android:textSize="20sp" />
+                </LinearLayout>
 
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2" />
+                <Space android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="2"/>
 
-                <Button
-                    android:id="@+id/button16"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="3"
-                    android:onClick="gonglue"
-                    android:text="阅读攻略" />
+                <!-- 🎬 场景库功能 -->
+                <LinearLayout
+                        android:id="@+id/button3"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="3"
+                        android:background="@drawable/select_button"
+                        android:gravity="center"
+                        android:onClick="personscore"
+                        android:orientation="horizontal"
+                        android:clickable="true"
+                        android:focusable="true">
 
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2" />
+                    <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="🎬"
+                            android:textSize="20sp" />
 
-                <Button
-                    android:id="@+id/button5"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="3"
-                    android:onClick="author"
-                    android:text="关于作者" />
+                    <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="场景库功能"
+                            android:textColor="@color/text_def"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                    <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="🎬"
+                            android:textSize="20sp" />
+                </LinearLayout>
+
+                <Space android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="2"/>
+
+                <!-- 📊 统计图表 -->
+                <LinearLayout
+                        android:id="@+id/button6"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="3"
+                        android:background="@drawable/select_button"
+                        android:gravity="center"
+                        android:onClick="thecharts"
+                        android:orientation="horizontal"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                    <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="📊"
+                            android:textSize="20sp" />
+
+                    <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="统计图表"
+                            android:textColor="@color/text_def"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                    <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="📊"
+                            android:textSize="20sp" />
+                </LinearLayout>
+
+                <Space android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="2"/>
+                <LinearLayout
+                        android:id="@+id/button4"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="3"
+                        android:background="@drawable/select_button"
+                        android:gravity="center"
+                        android:onClick="chaxun"
+                        android:orientation="horizontal"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                    <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="🗃"
+                            android:textSize="20sp"/>
+
+                    <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="场景库列表"
+                            android:textColor="@color/text_def"
+                            android:textSize="16sp"
+                            android:textStyle="bold"/>
+
+                    <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"/>
+
+                    <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="🗃"
+                            android:textSize="20sp"/>
+                </LinearLayout>
+                <Space android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="2"/>
+
+                <!-- 🎲 试试手气 -->
+                <LinearLayout
+                        android:id="@+id/button16"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="3"
+                        android:background="@drawable/select_button"
+                        android:gravity="center"
+                        android:onClick="gonglue"
+                        android:orientation="horizontal"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                    <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="🎲"
+                            android:textSize="20sp" />
+
+                    <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="试试手气？"
+                            android:textColor="@color/text_def"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                    <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="🎲"
+                            android:textSize="20sp" />
+                </LinearLayout>
+
+                <Space android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="2"/>
+
+                <!-- ℹ️ 关于与赞助名单 -->
+                <LinearLayout
+                        android:id="@+id/button5"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="3"
+                        android:background="@drawable/select_button"
+                        android:gravity="center"
+                        android:onClick="author"
+                        android:orientation="horizontal"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                    <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="❤️"
+                            android:textSize="20sp" />
+
+                    <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="关于与赞助名单"
+                            android:textColor="@color/text_def"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                    <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="❤️"
+                            android:textSize="20sp" />
+                </LinearLayout>
 
             </LinearLayout>
 
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"/>
-
+            <Space android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="0.5"/>
         </LinearLayout>
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2" />
-
+        <Space android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="2"/>
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

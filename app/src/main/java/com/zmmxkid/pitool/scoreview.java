@@ -31,7 +31,7 @@ public class scoreview extends AppCompatActivity {
         setContentView(R.layout.activity_scoreview);
     }
     public void chaxun(View view) {
-        String url = "http://47.241.0.156:34567/WebAPI/public/%E4%B8%BB%E6%B8%B8%E6%88%8F/%E5%AF%84%E7%94%9F%E8%99%AB.txt";
+        String url = "http://47.93.57.125:521/WebAPI/public/%E4%B8%BB%E6%B8%B8%E6%88%8F/%E5%AF%84%E7%94%9F%E8%99%AB.txt";
         String headerRow = "位,分数,QQ号,昵称\n"; // 这里是第一行的内容
         new DownloadFileTask().execute(url, headerRow);
     }

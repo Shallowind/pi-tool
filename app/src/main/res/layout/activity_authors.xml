@@ -1,59 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+<androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_main">
 
-    <TextView
-        android:id="@+id/textView17"
-        android:layout_width="367dp"
-        android:layout_height="163dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="16dp"
-        android:gravity="center"
-        android:text="本应用由kid(2334232884)独立开发\n由Gyrfalcon(380593916)提供服务器api支持\n\n本应用数千行代码\n喜欢的话可以请我喝一杯冰可乐(⑅˃◡˂⑅)"
-        android:textSize="18dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
-        app:layout_constraintStart_toStartOf="parent" />
+    <!-- 顶部 Logo + 标题 -->
+    <LinearLayout
+            android:id="@+id/topArea"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="40dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="248dp"
-        android:layout_height="276dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/button10"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/code" />
+        <ImageView
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                app:srcCompat="@mipmap/logo_round"/>
 
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="PI Tool"
+                android:textStyle="bold"
+                android:textSize="36sp"
+                android:textColor="@color/text_main"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Version 4.2.0 正式版"
+                android:textSize="16sp"
+                android:textColor="@color/text_secondary"/>
+    </LinearLayout>
+
+    <!-- 信息卡片 -->
+    <androidx.cardview.widget.CardView
+            android:id="@+id/infoCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/card_bg"
+            app:layout_constraintTop_toBottomOf="@id/topArea"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/card_bg"
+                android:padding="20dp">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="开发者信息"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_main"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="本应用由 kid（2334232884）独立开发\n由 Gyrfalcon（380593916）提供后端代码支持"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_secondary"/>
+
+            <TextView
+                    android:id="@+id/textView18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_secondary"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:text="喜欢的话可以wx扫码请我喝一杯冰可乐🧊"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_secondary"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- 赞助区域 -->
+    <LinearLayout
+            android:id="@+id/payArea"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginHorizontal="24dp"
+            app:layout_constraintTop_toBottomOf="@id/infoCard"
+            app:layout_constraintBottom_toTopOf="@id/button10"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+                android:layout_width="135dp"
+                android:layout_height="222dp"
+                app:srcCompat="@drawable/code"/>
+
+        <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="260dp"
+                android:fadeScrollbars="false"
+                android:layout_marginStart="16dp">
+
+            <TextView
+                    android:id="@+id/textView33"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_secondary"/>
+        </ScrollView>
+    </LinearLayout>
+
+    <!-- 检查更新按钮 -->
     <Button
-        android:id="@+id/button10"
-        android:layout_width="214dp"
-        android:layout_height="57dp"
-        android:layout_marginBottom="56dp"
-        android:text="检查更新"
-        android:onClick="gengxin"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView19"
-        android:layout_width="357dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="PI Tool\n version1.6.3正式版"
-        android:textSize="35dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView17"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.627" />
+            android:id="@+id/button10"
+            android:layout_width="0dp"
+            android:layout_height="58dp"
+            android:layout_margin="24dp"
+            android:text="检查更新"
+            android:textSize="18sp"
+            android:background="@drawable/select_button"
+            android:onClick="gengxin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:padding="10dp"
+              android:id="@+id/container"
+              android:descendantFocusability="blocksDescendants"> <!-- 阻止子控件抢占焦点 -->
+
+    <ImageView
+            android:id="@+id/iconlogo"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="2dp"
+            android:src="@mipmap/logo"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"/>
+
+    <TextView
+            android:id="@+id/textView27"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#EFFFFF"
+            android:textSize="14sp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:padding="8dp"/>
+
+
+</LinearLayout>

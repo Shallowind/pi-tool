@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/backlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="24dp"
+        android:background="@color/background_color"
+        tools:context=".personscore">
+
+    <!-- 标题 -->
+    <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请输入QQ号："
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/edit_container"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_chainStyle="spread"
+            app:layout_constraintVertical_bias="0.1" />
+
+    <!-- 输入框容器（水平排列） -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/edit_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/textView"
+            app:layout_constraintBottom_toTopOf="@id/button9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+        <EditText
+                android:id="@+id/editTextText4"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:background="@drawable/bg_input"
+                android:ems="10"
+                android:gravity="center"
+                android:inputType="text"
+                android:text="380593916"
+                android:textSize="24sp"
+                android:textColor="@color/text_primary"
+                android:hint="QQ号码"
+                android:textColorHint="@color/text_hint"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/buttonBind"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginEnd="8dp" />
+
+        <!-- 绑定按钮：改为单个 Emoji -->
+        <Button
+                android:id="@+id/buttonBind"
+                android:layout_width="64dp"
+                android:layout_height="0dp"
+                android:background="@drawable/select_button"
+                android:onClick="drawscore"
+                android:text="🔗"
+                android:textSize="24sp"
+                android:textColor="@color/text_def"
+                android:gravity="center"
+                app:layout_constraintStart_toEndOf="@id/editTextText4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/editTextText4"
+                app:layout_constraintBottom_toBottomOf="@id/editTextText4" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- 生涯曲线 📈 -->
+    <LinearLayout
+            android:id="@+id/button9"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="36dp"
+            android:background="@drawable/select_button"
+            android:onClick="seehistory"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintTop_toBottomOf="@id/edit_container"
+            app:layout_constraintBottom_toTopOf="@id/button9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.8">
+
+        <TextView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="📈"
+                android:textSize="20sp" />
+
+        <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="生涯曲线"
+                android:textColor="@color/text_def"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+        <TextView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="📈"
+                android:textSize="20sp" />
+    </LinearLayout>
+    <!-- 联机大厅 📈 -->
+    <LinearLayout
+            android:id="@+id/button125"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/select_button"
+            android:onClick="dating"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintTop_toBottomOf="@id/button9"
+            app:layout_constraintBottom_toTopOf="@id/button8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.8">
+
+        <TextView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="🌐"
+                android:textSize="20sp" />
+
+        <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="联机大厅"
+                android:textColor="@color/text_def"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+        <TextView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="🌐"
+                android:textSize="20sp" />
+    </LinearLayout>
+    <!-- 场景库热度排行榜 🔥 -->
+    <LinearLayout
+            android:id="@+id/button8"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/select_button"
+            android:onClick="hot"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintTop_toBottomOf="@id/button125"
+            app:layout_constraintBottom_toTopOf="@id/button15"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.8">
+
+        <TextView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="🔥"
+                android:textSize="20sp" />
+
+        <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="场景库热度排行榜"
+                android:textColor="@color/text_def"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+        <TextView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="🔥"
+                android:textSize="20sp" />
+    </LinearLayout>
+
+    <!-- 场景库吃分排行榜 🎯 -->
+    <LinearLayout
+            android:id="@+id/button15"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/select_button"
+            android:onClick="chifen"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintTop_toBottomOf="@id/button8"
+            app:layout_constraintBottom_toTopOf="@id/button16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.8">
+
+        <TextView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="🎯"
+                android:textSize="20sp" />
+
+        <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="场景库吃分排行榜"
+                android:textColor="@color/text_def"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+        <TextView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="🎯"
+                android:textSize="20sp" />
+    </LinearLayout>
+
+    <!-- 场景库发展史 📜 -->
+    <LinearLayout
+            android:id="@+id/button16"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/select_button"
+            android:onClick="fazhan"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintTop_toBottomOf="@id/button15"
+            app:layout_constraintBottom_toTopOf="@id/button17"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.8">
+
+        <TextView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="📜"
+                android:textSize="20sp" />
+
+        <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="场景库发展史"
+                android:textColor="@color/text_def"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+        <TextView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="📜"
+                android:textSize="20sp" />
+    </LinearLayout>
+
+    <!-- 玩家活跃度统计 👥 -->
+    <LinearLayout
+            android:id="@+id/button17"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/select_button"
+            android:onClick="huoyue"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintTop_toBottomOf="@id/button16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.8">
+
+        <TextView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="👥"
+                android:textSize="20sp" />
+
+        <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="玩家活跃度统计"
+                android:textColor="@color/text_def"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+        <TextView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="👥"
+                android:textSize="20sp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

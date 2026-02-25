@@ -1,18 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/backlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_color">
 
+    <!-- 搜索栏 -->
     <SearchView
-        android:id="@+id/searchView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layoutDirection="rtl"
-        android:queryHint="Search" />
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layoutDirection="rtl"
+            android:iconifiedByDefault="false"
+            android:queryHint="支持搜索场景名、包名、作者"
+            android:elevation="2dp"
+            app:layout_constraintTop_toTopOf="parent"/>
 
+    <!-- 分类排序按钮区域（使用 ConstraintLayout 实现 2x2 网格） -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/button_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="2dp"
+            android:layout_marginVertical="2dp"
+            app:layout_constraintTop_toBottomOf="@id/searchView">
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/button25"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:text="按序号分类排序"
+                android:textSize="13sp"
+                android:onClick="sortbyid"
+                android:backgroundTint="@color/button_pressed"
+                android:textColor="@color/black"
+                app:strokeColor="@color/card_stroke"
+                app:strokeWidth="1dp"
+                app:cardElevation="0dp"
+                app:cornerRadius="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/button26"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/button26"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:text="按定数分类排序"
+                android:textSize="13sp"
+                android:onClick="sortbydingshu"
+                android:backgroundTint="@color/button_pressed"
+                android:textColor="@color/black"
+                app:strokeColor="@color/card_stroke"
+                app:strokeWidth="1dp"
+                app:cardElevation="0dp"
+                app:cornerRadius="8dp"
+                app:layout_constraintStart_toEndOf="@id/button25"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/button27"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="2dp"
+                android:text="按作者分类排序"
+                android:textSize="13sp"
+                android:onClick="sortbyzuozhe"
+                app:cardElevation="0dp"
+                android:backgroundTint="@color/button_pressed"
+                android:textColor="@color/black"
+                app:strokeColor="@color/card_stroke"
+                app:strokeWidth="1dp"
+                app:cornerRadius="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/button28"
+                app:layout_constraintTop_toBottomOf="@id/button25"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/button28"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="2dp"
+                android:text="按包分类排序"
+                android:textSize="13sp"
+                app:cardElevation="0dp"
+                android:onClick="sortbybao"
+                android:backgroundTint="@color/button_pressed"
+                android:textColor="@color/black"
+                app:strokeColor="@color/card_stroke"
+                app:strokeWidth="1dp"
+                app:cornerRadius="8dp"
+                app:layout_constraintStart_toEndOf="@id/button27"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/button26"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+        />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- 列表 -->
     <ListView
-        android:id="@+id/listView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</LinearLayout>
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="8dp"
+            android:fastScrollEnabled="true"
+            android:fastScrollAlwaysVisible="true"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="6dp"
+            android:clipToPadding="false"
+            android:paddingBottom="12dp"
+            app:layout_constraintTop_toBottomOf="@id/button_container"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

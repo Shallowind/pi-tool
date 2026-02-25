@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginVertical="6dp"
+        app:cardBackgroundColor="@color/card_background"
+        app:strokeColor="@color/card_stroke"
+        app:strokeWidth="0.5dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp">
+
+        <!-- 1. 序号宽度缩小到40dp（足够显示#9999） -->
+        <TextView
+                android:id="@+id/tv_sequence"
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="#1"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_secondary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- 2. 图片缩小到56dp（仍保持清晰，释放16dp空间） -->
+        <com.zmmxkid.pitool.DiagonalCutImageView
+                android:id="@+id/iv_scene"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toEndOf="@id/tv_sequence"
+                app:cutRatio="0.2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- 3. 标题：左间距8dp(原12dp)，右间距4dp(原8dp)，字体15sp(原16sp) -->
+        <!-- 如果还想更激进，可以设14sp，但不建议小于14sp -->
+        <TextView
+                android:id="@+id/tv_scene_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="4dp"
+                android:text="场景名称"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:ellipsize="end"
+                android:maxLines="1"
+                app:layout_constraintEnd_toStartOf="@id/layout_right"
+                app:layout_constraintStart_toEndOf="@id/iv_scene"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- 4. 难度标签：紧贴标题，左间距同步改为8dp -->
+        <TextView
+                android:id="@+id/tv_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="2dp"
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="1dp"
+                android:text="FTR 9"
+                android:textColor="@color/text_primary"
+                android:textSize="10sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@id/iv_scene"
+                app:layout_constraintTop_toBottomOf="@id/tv_scene_name" />
+
+        <!-- 5. 日期：左间距8dp，上边距减小到2dp -->
+        <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="2dp"
+                android:text="2023年6月26日"
+                android:textColor="@color/text_secondary"
+                android:textSize="11sp"
+                app:layout_constraintStart_toEndOf="@id/iv_scene"
+                app:layout_constraintTop_toBottomOf="@id/tv_category" />
+
+        <!-- 6. 时间：可以改为与日期同行以节省垂直空间（可选） -->
+        <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="1dp"
+                android:text="10时22分"
+                android:textColor="@color/text_tertiary"
+                android:textSize="10sp"
+                app:layout_constraintStart_toEndOf="@id/iv_scene"
+                app:layout_constraintTop_toBottomOf="@id/tv_date" />
+
+        <!-- 右侧数值区 -->
+        <LinearLayout
+                android:id="@+id/layout_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="end"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                    android:id="@+id/tv_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="73,212"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/positive_green" />
+
+            <TextView
+                    android:id="@+id/tv_ptt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="PTT: +0.27"
+                    android:textSize="13sp"
+                    android:textColor="@color/ptt_blue"
+                    android:textStyle="bold" />
+
+            <TextView
+                    android:id="@+id/tv_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="总分: 3,093"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_secondary" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

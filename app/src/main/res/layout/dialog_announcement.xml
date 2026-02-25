@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="@color/pop_background"
+        app:strokeWidth="0dp">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+
+        <!-- 头部区域（保持之前的不变）... -->
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp">
+
+            <!-- 圆形头像容器 -->
+            <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/avatar"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp" />
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp">
+
+                <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_primary"
+                        android:maxLines="1"
+                        android:ellipsize="end" />
+
+                <TextView
+                        android:id="@+id/qq_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:textColor="@color/text_secondary"
+                        android:layout_marginTop="2dp" />
+
+                <TextView
+                        android:id="@+id/time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_tertiary"
+                        android:layout_marginTop="4dp"
+                        android:drawablePadding="4dp"
+                        app:drawableTint="@color/text_tertiary" />
+            </LinearLayout>
+        </LinearLayout>
+        <!-- 内容区域 -->
+        <TextView
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="@color/text_main"
+                android:lineSpacingMultiplier="1.4"
+                android:padding="12dp"
+                android:minHeight="60dp" />
+
+        <!-- 底部按钮区域（新增） -->
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:gravity="end|center_vertical">
+
+            <!-- 发公告按钮：文字按钮样式 -->
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_post"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="✏️ 发公告"
+                    android:textSize="14sp"
+                    android:textColor="@color/green_600"
+                    android:minWidth="0dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:layout_marginEnd="8dp"
+                    app:rippleColor="@color/green_600" />
+
+            <!-- 确认按钮：填充样式 -->
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_confirm"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我知道了"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    app:cornerRadius="20dp"
+                    app:backgroundTint="@color/ptt_blue"
+                    android:minWidth="88dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
