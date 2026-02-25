@@ -1,17 +1,18 @@
-# PI-Tool——瘟疫公司（Plague Inc.）玩家数据工具与社区平台
 
-<img src="https://img.shields.io/badge/Android-6.0%2B-green?logo=android&logoColor=white" alt="Android 6.0+">
-<img src="https://img.shields.io/badge/Java-8-orange?logo=java&logoColor=white" alt="Java 8">
-<img src="https://img.shields.io/badge/License-MIT-blue" alt="MIT License">
-<img src="https://img.shields.io/badge/Version-4.2-ff69b4" alt="Version 4.2">
+# PI-Tool —— 瘟疫公司玩家数据分析与社区平台
+
+[![Android](https://img.shields.io/badge/Android-6.0+-green.svg)](https://developer.android.com/)
+[![Java](https://img.shields.io/badge/Java-8-orange.svg)](https://www.oracle.com/java/)
+[![SQLite](https://img.shields.io/badge/SQLite-Database-blue.svg)](https://www.sqlite.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/Version-4.2-ff69b4.svg)]()
+
 <p align="center">
-  <img src="docs/images/logo.png"  width="150"/>
+  <img src="docs/images/logo.png" alt="PI-Tool Logo" width="200"/>
 </p>
 
-[功能特性](#功能特性) • [界面预览](#界面预览) • [快速开始](#快速开始) • [项目结构](#项目结构) • [贡献指南](#贡献指南)
-
-
 ---
+
 
 ## 📱 项目简介
 
