@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Version 4.2.0 正式版"
+                android:text="Version 4.5.0 正式版"
                 android:textSize="16sp"
                 android:textColor="@color/text_secondary"/>
     </LinearLayout>

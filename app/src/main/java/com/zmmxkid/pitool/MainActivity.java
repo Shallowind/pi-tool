@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_READ_EXTERNAL_STORAGE = 100;
     private static final String ANNOUNCEMENT_URL = "http://47.93.57.125:521/Webapi/public/comment/gg/source/announcement_default.txt";
 
-    public static double version = 4.2;
+    public static double version = 4.5;
     public static scnperson.LoadDataTask currentTask;
     public static mainperson.LoadDataTask currentTask2;
     public static b30.DownloadImageTaskForImageView currentTask1;
@@ -296,48 +296,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void gonglue(View view) {
-        new DownloadScenarioTask().execute("http://47.93.57.125:521/WebAPI/public/scenInfo/scenList.txt");
+    public void openRecommend(View view) {
+        startActivity(new Intent(this, RecommendActivity.class));
     }
-
-    private void showAlertDialog(final String content, String id) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("您随机到的为\n" + content).setPositiveButton("查看", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                String firstData = id;
-
-                Intent intent = new Intent(MainActivity.this, scnperson.class);
-                intent.putExtra("key", firstData);
-                startActivity(intent);
-            }
-        }).setNegativeButton("再来一次", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                gonglue(null); // 重新随机选择内容
-            }
-        });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-        // 设置圆角背景（关键代码）
-        if (alertDialog.getWindow() != null) {
-            alertDialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_rounded_bg);
-        }
-
-        // 可选：美化按钮颜色（使用你已有的蓝色）
-        Button positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        Button negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
-
-        if (positiveButton != null) {
-            positiveButton.setTextColor(getResources().getColor(R.color.ptt_blue, null));
-        }
-        if (negativeButton != null) {
-            negativeButton.setTextColor(getResources().getColor(R.color.text_secondary, null));
-        }
-    }
-
 
     public void chaxun(View view) {
         Intent intent = new Intent(this,scnlist.class);
@@ -370,68 +331,6 @@ public class MainActivity extends AppCompatActivity {
     // 简单的回调接口定义
     interface Callback {
         void onResult(String data);
-    }
-
-    private class DownloadScenarioTask extends AsyncTask<String, Void, List<String>> {
-
-        @Override
-        protected List<String> doInBackground(String... strings) {
-            List<String> lines = new ArrayList<>();
-
-            try {
-                URL url = new URL(strings[0]);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.connect();
-
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    lines.add(line);
-                }
-
-                bufferedReader.close();
-                connection.disconnect();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return lines;
-        }
-
-        @Override
-        protected void onPostExecute(List<String> lines) {
-            super.onPostExecute(lines);
-
-            if (!lines.isEmpty()) {
-                List<String> nonEmptyLines = new ArrayList<>();
-                for (String line : lines) {
-                    if (!line.trim().isEmpty()) {
-                        nonEmptyLines.add(line);
-                    }
-                }
-
-                if (!nonEmptyLines.isEmpty()) {
-                    Random random = new Random();
-                    int randomIndex = random.nextInt(nonEmptyLines.size());
-                    String randomLine = nonEmptyLines.get(randomIndex);
-                    String[] parts = randomLine.split(",");
-                    if (parts.length >= 5) {
-                        id = parts[0].trim();
-                        String category = parts[3].trim();
-                        String level = parts[4].trim();
-                        String name = parts[1].trim();
-                        String author = parts[6].trim();
-
-                        showAlertDialog(category + " " + level + " " + name + " " + author, id);
-                    }
-                } else {
-                    Toast.makeText(MainActivity.this, "文件内容为空", Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                Toast.makeText(MainActivity.this, "无法获取文件内容", Toast.LENGTH_SHORT).show();
-            }
-        }
     }
 
     private class DownloadJsonTask extends AsyncTask<String, Integer, String> {

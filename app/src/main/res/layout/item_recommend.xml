@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+                    <com.google.android.material.card.MaterialCardView
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                            xmlns:tools="http://schemas.android.com/tools"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            app:cardBackgroundColor="@color/card_background"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="0dp"
+                            app:strokeWidth="0.5dp"
+                            app:strokeColor="@color/card_stroke">
+
+                        <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:padding="10dp">
+
+                            <com.zmmxkid.pitool.DiagonalCutImageView
+                                    android:id="@+id/recIcon"
+                                    android:layout_width="56dp"
+                                    android:layout_height="56dp"
+                                    android:layout_marginEnd="10dp"
+                                    app:cutRatio="0.2"
+                                    tools:srcCompat="@drawable/rating_off"/>
+
+                            <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                <TextView
+                                        android:id="@+id/recCategory"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="11sp"
+                                        android:textColor="@color/ptt_blue"
+                                        android:textStyle="bold"
+                                        tools:text="提升挑战"/>
+
+                                <TextView
+                                        android:id="@+id/recTitle"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="1dp"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold"
+                                        android:textColor="@color/text_primary"
+                                        android:maxLines="2"
+                                        android:lineSpacingExtra="0dp"
+                                        android:ellipsize="end"
+                                        tools:text="场景名称"/>
+
+                                <TextView
+                                        android:id="@+id/recMeta"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="12sp"
+                                        android:textColor="@color/text_secondary"
+                                        android:layout_marginTop="1dp"
+                                        tools:text="FTR3.5  By 作者"/>
+
+                                <TextView
+                                        android:id="@+id/recReason"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="12sp"
+                                        android:textColor="@color/text_primary"
+                                        android:layout_marginTop="3dp"
+                                        tools:text="推荐理由"/>
+
+                                <TextView
+                                        android:id="@+id/recPredict"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="11sp"
+                                        android:textColor="@color/text_hint"
+                                        android:layout_marginTop="1dp"
+                                        tools:text="预估..."/>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>

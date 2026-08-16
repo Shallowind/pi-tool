@@ -12,7 +12,7 @@ android {
         //noinspection OldTargetApi,EditedTargetSdkVersion
         targetSdk = 34
         versionCode = 1
-        versionName = "official.4.1.0"
+        versionName = "official.4.5.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

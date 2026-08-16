@@ -33,7 +33,9 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
@@ -43,7 +45,10 @@ import static com.zmmxkid.pitool.MainActivity.randomNumber;
 
 public class scnperson extends AppCompatActivity {
 
+    private static final String SCEN_LIST_URL = "http://47.93.57.125:521/WebAPI/public/scenInfo/scenList.txt";
+
     private TextView headText, headText2;
+    private String fenbeilvValue = "";
     private TextView[] ppaiming = new TextView[20];
     private TextView[] sscore = new TextView[20];
     private TextView[] pptt = new TextView[20];
@@ -54,6 +59,129 @@ public class scnperson extends AppCompatActivity {
     private int currentPage = 0;
 
     private boolean buttondef = true;
+
+    // disease.txt 中技能效果字段 → 中文名
+    private static final Map<String, String> DISEASE_EFFECT_LABELS = new LinkedHashMap<>();
+
+    static {
+        DISEASE_EFFECT_LABELS.put("change_to_infectiousness", "传染性");
+        DISEASE_EFFECT_LABELS.put("change_to_severity", "严重性");
+        DISEASE_EFFECT_LABELS.put("change_to_lethality", "致命性");
+        DISEASE_EFFECT_LABELS.put("change_to_mutation", "突变率");
+        DISEASE_EFFECT_LABELS.put("change_to_land_transmission", "陆地传播");
+        DISEASE_EFFECT_LABELS.put("change_to_sea_transmission", "海洋传播");
+        DISEASE_EFFECT_LABELS.put("change_to_air_transmission", "空气传播");
+        DISEASE_EFFECT_LABELS.put("change_to_corpse_transmission", "尸体传播");
+        DISEASE_EFFECT_LABELS.put("change_to_wealthy", "富裕抗性");
+        DISEASE_EFFECT_LABELS.put("change_to_poverty", "贫困抗性");
+        DISEASE_EFFECT_LABELS.put("change_to_urban", "城市抗性");
+        DISEASE_EFFECT_LABELS.put("change_to_rural", "农村抗性");
+        DISEASE_EFFECT_LABELS.put("change_to_hot", "炎热抗性");
+        DISEASE_EFFECT_LABELS.put("change_to_cold", "寒冷抗性");
+        DISEASE_EFFECT_LABELS.put("change_to_humid", "湿润抗性");
+        DISEASE_EFFECT_LABELS.put("change_to_arid", "干燥抗性");
+        DISEASE_EFFECT_LABELS.put("change_to_cure_base_multiplier", "解药需求");
+        DISEASE_EFFECT_LABELS.put("change_to_research_inefficiency_multiplier", "解药阻滞");
+        DISEASE_EFFECT_LABELS.put("change_to_spore_counter", "孢子数量");
+    }
+
+    /** 在 disease.txt 的每个特性介绍后追加一行效果说明 */
+    private static void appendDiseaseEffectsToDescription(File diseaseFile) throws IOException {
+        List<String> lines = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(diseaseFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) lines.add(line);
+        }
+
+        boolean inDiseaseTech = false;
+        int descIndex = -1;
+        List<String> effects = new ArrayList<>();
+
+        for (int i = 0; i < lines.size(); i++) {
+            String line = lines.get(i);
+            String trimmed = line.trim();
+            if (trimmed.isEmpty()) {
+                finalizeTraitDesc(lines, descIndex, effects);
+                descIndex = -1;
+                effects.clear();
+                continue;
+            }
+
+            int indent = leadingWs(line);
+            boolean isSection = indent == 0 && trimmed.endsWith(":");
+
+            if (isSection) {
+                finalizeTraitDesc(lines, descIndex, effects);
+                descIndex = -1;
+                effects.clear();
+                inDiseaseTech = trimmed.startsWith("disease_tech:");
+                continue;
+            }
+
+            // 特性头部：以":"结尾，且下一非空行缩进更深
+            if (inDiseaseTech && trimmed.endsWith(":")) {
+                int j = i + 1;
+                int nextIndent = -1;
+                while (j < lines.size() && lines.get(j).trim().isEmpty()) j++;
+                if (j < lines.size()) nextIndent = leadingWs(lines.get(j));
+                if (nextIndent > indent) {
+                    finalizeTraitDesc(lines, descIndex, effects);
+                    descIndex = -1;
+                    effects.clear();
+                    continue;
+                }
+            }
+
+            if (!inDiseaseTech) continue;
+
+            int colon = trimmed.indexOf(':');
+            if (colon <= 0) continue;
+            String key = trimmed.substring(0, colon).trim();
+            String value = trimmed.substring(colon + 1).trim();
+
+            if (key.equals("description")) {
+                descIndex = i;
+            } else {
+                String label = DISEASE_EFFECT_LABELS.get(key);
+                if (label != null && !value.isEmpty()) {
+                    try {
+                        double v = Double.parseDouble(value);
+                        if (v != 0) {
+                            effects.add(label + (v > 0 ? "+" : "") + formatNum(v));
+                        }
+                    } catch (NumberFormatException ignored) {
+                    }
+                }
+            }
+        }
+        finalizeTraitDesc(lines, descIndex, effects);
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(diseaseFile))) {
+            for (String l : lines) {
+                writer.write(l);
+                writer.newLine();
+            }
+        }
+    }
+
+    private static void finalizeTraitDesc(List<String> lines, int descIndex, List<String> effects) {
+        if (descIndex < 0 || descIndex >= lines.size() || effects.isEmpty()) return;
+        String joined = String.join("；", effects);
+        lines.set(descIndex, lines.get(descIndex) + "\\n" + joined);
+    }
+
+    private static String formatNum(double v) {
+        if (v == Math.floor(v) && !Double.isInfinite(v) && Math.abs(v) < 1e15) {
+            return String.valueOf((long) v);
+        }
+        return String.valueOf(v);
+    }
+
+    private static int leadingWs(String s) {
+        int n = 0;
+        while (n < s.length() && (s.charAt(n) == ' ' || s.charAt(n) == '\t')) n++;
+        return n;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +253,9 @@ public class scnperson extends AppCompatActivity {
         headText2 = findViewById(R.id.headtext2);
         headImg = findViewById(R.id.headimg);
 
+        num = getIntent().getStringExtra("key");
+        resolveFenbeilv();
+
         for (int i = 0; i < 20; i++) {
             ppaiming[i] = findViewById(getResources().getIdentifier("ppaiming" + (i + 1), "id", getPackageName()));
             sscore[i] = findViewById(getResources().getIdentifier("sscore" + (i + 1), "id", getPackageName()));
@@ -147,7 +278,6 @@ public class scnperson extends AppCompatActivity {
                 }
             });
         }
-        num = getIntent().getStringExtra("key");
         qq = "123456789"; // Replace with the actual QQ value
         String headIconUrl =
                 "http://47.93.57.125:521/WebAPI/public/icons/" + num + ".png";
@@ -187,6 +317,73 @@ public class scnperson extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void resolveFenbeilv() {
+        String fromIntent = getIntent().getStringExtra("fenbeilv");
+        if (fromIntent != null && !fromIntent.trim().isEmpty()) {
+            applyFenbeilv(fromIntent.trim());
+            return;
+        }
+        new LoadFenbeilvTask().execute();
+    }
+
+    private void applyFenbeilv(String value) {
+        fenbeilvValue = value;
+    }
+
+    public void openCalculator(View view) {
+        Intent intent = new Intent(this, caculate.class);
+        if (fenbeilvValue != null && !fenbeilvValue.isEmpty()) {
+            intent.putExtra("fenbeilv", fenbeilvValue);
+        }
+        startActivity(intent);
+    }
+
+    private static boolean scenarioIdsMatch(String idFromList, String num) {
+        if (num == null) return false;
+        String a = idFromList != null ? idFromList.trim() : "";
+        String b = num.trim();
+        try {
+            return Integer.parseInt(a) == Integer.parseInt(b);
+        } catch (NumberFormatException e) {
+            return a.equals(b);
+        }
+    }
+
+    private class LoadFenbeilvTask extends AsyncTask<Void, Void, String> {
+        @Override
+        protected String doInBackground(Void... voids) {
+            try {
+                URL url = new URL(SCEN_LIST_URL);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setConnectTimeout(8000);
+                conn.setReadTimeout(8000);
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    if (line.trim().isEmpty()) continue;
+                    String[] p = line.split(",");
+                    if (p.length > 2 && scenarioIdsMatch(p[0], num)) {
+                        reader.close();
+                        conn.disconnect();
+                        return p[2].trim();
+                    }
+                }
+                reader.close();
+                conn.disconnect();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            if (s != null && !s.isEmpty()) {
+                applyFenbeilv(s);
+            }
+        }
     }
 
     public void playscn(View view) {
@@ -459,7 +656,85 @@ public class scnperson extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            return downloadedFile;
+            if (downloadedFile == null || !downloadedFile.exists()) return downloadedFile;
+
+            // 解压 → 处理 disease.txt → 重新封装为 .plagueinc
+            File renamedFile = new File(downloadedFile.getAbsolutePath().replace(".zip", ".plagueinc"));
+            try {
+                File tempDir = new File(getCacheDir(), "playTempDir");
+                if (tempDir.exists()) deleteRecursively(tempDir);
+                tempDir.mkdirs();
+
+                try (ZipInputStream zipInputStream = new ZipInputStream(new FileInputStream(downloadedFile))) {
+                    ZipEntry zipEntry;
+                    while ((zipEntry = zipInputStream.getNextEntry()) != null) {
+                        File extractedFile = new File(tempDir, zipEntry.getName());
+                        if (zipEntry.isDirectory()) {
+                            extractedFile.mkdirs();
+                        } else {
+                            File parent = extractedFile.getParentFile();
+                            if (parent != null) parent.mkdirs();
+                            try (FileOutputStream fos = new FileOutputStream(extractedFile)) {
+                                byte[] buffer = new byte[1024];
+                                int length;
+                                while ((length = zipInputStream.read(buffer)) != -1) {
+                                    fos.write(buffer, 0, length);
+                                }
+                            }
+                        }
+                        zipInputStream.closeEntry();
+                    }
+                }
+
+                File diseaseFile = new File(tempDir, "disease.txt");
+                if (diseaseFile.exists()) {
+                    appendDiseaseEffectsToDescription(diseaseFile);
+                }
+
+                try (ZipOutputStream zipOutputStream = new ZipOutputStream(new FileOutputStream(renamedFile))) {
+                    addFilesToZip(tempDir, tempDir, zipOutputStream);
+                }
+
+                deleteRecursively(tempDir);
+                downloadedFile.delete();
+                return renamedFile;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return downloadedFile;
+            }
+        }
+
+        // 递归将文件添加到压缩包
+        private void addFilesToZip(File dir, File baseDir, ZipOutputStream zipOutputStream) throws IOException {
+            File[] files = dir.listFiles();
+            if (files == null) return;
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    addFilesToZip(file, baseDir, zipOutputStream);
+                } else {
+                    String entryName = file.getAbsolutePath().substring(baseDir.getAbsolutePath().length() + 1)
+                            .replace(File.separatorChar, '/');
+                    try (FileInputStream fis = new FileInputStream(file)) {
+                        zipOutputStream.putNextEntry(new ZipEntry(entryName));
+                        byte[] buffer = new byte[1024];
+                        int length;
+                        while ((length = fis.read(buffer)) != -1) {
+                            zipOutputStream.write(buffer, 0, length);
+                        }
+                        zipOutputStream.closeEntry();
+                    }
+                }
+            }
+        }
+
+        private void deleteRecursively(File file) {
+            File[] children = file.listFiles();
+            if (children != null) {
+                for (File child : children) {
+                    deleteRecursively(child);
+                }
+            }
+            file.delete();
         }
 
         @Override
@@ -473,50 +748,69 @@ public class scnperson extends AppCompatActivity {
             super.onPostExecute(downloadedFile);
             progressDialog.dismiss();
 
-            if (downloadedFile != null) {
-                String renamedFilePath = downloadedFile.getAbsolutePath().replace(".zip", ".plagueinc");
+            if (downloadedFile != null && downloadedFile.exists()) {
+                String renamedFilePath = downloadedFile.getAbsolutePath();
+                if (!renamedFilePath.endsWith(".plagueinc")) {
+                    renamedFilePath = renamedFilePath.replace(".zip", ".plagueinc");
+                }
                 File renamedFile = new File(renamedFilePath);
 
-                if (downloadedFile.renameTo(renamedFile)) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    Uri fileUri = FileProvider.getUriForFile(scnperson.this, "com.zmmxkid.pitool.fileprovider", renamedFile);
-                    intent.setDataAndType(fileUri, "*/*");
-                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.setPackage("com.miniclip.plagueinc");
-
-                    try {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(scnperson.this);
-                        builder.setMessage("注意：\n1.不是每个场景都能用手机游玩的，如遇问题请游玩其他场景\n2.请确保你把瘟疫公司从最近任务里划走(彻底处于未打开状态)才能正常游玩")
-                                .setPositiveButton("开始游戏（我已划走瘟疫公司）", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        // 启动悬浮窗服务
-                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(scnperson.this)) {
-                                            Intent overlayIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                                                    Uri.parse("package:" + getPackageName()));
-                                            startActivity(overlayIntent);
-                                            Toast.makeText(scnperson.this, "请授予悬浮窗权限后再尝试", Toast.LENGTH_LONG).show();
-                                        } else {
-                                            Intent floatIntent = new Intent(scnperson.this, FloatingViewService.class);
-                                            floatIntent.putExtra("key", num + "-" + headText.getText().toString());
-                                            startService(floatIntent);
-                                            try {
-                                                startActivity(intent);
-                                            } catch (Exception e) {
-                                                Toast.makeText(scnperson.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                            }
-                                        }
-                                        dialog.dismiss();
-                                    }
-                                });
-                        builder.create().show();
-                    } catch (Exception e) {
-                        new AlertDialog.Builder(scnperson.this)
-                                .setMessage(e.getMessage())
-                                .setPositiveButton("OK", (dialog, id) -> dialog.dismiss())
-                                .create().show();
+                if (!renamedFile.exists() && downloadedFile.getName().endsWith(".zip")) {
+                    if (downloadedFile.renameTo(renamedFile)) {
+                        // renamed
+                    } else {
+                        Toast.makeText(scnperson.this, "文件重命名失败", Toast.LENGTH_SHORT).show();
+                        return;
                     }
-                } else {
-                    Toast.makeText(scnperson.this, "文件重命名失败", Toast.LENGTH_SHORT).show();
+                }
+
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                Uri fileUri = FileProvider.getUriForFile(scnperson.this, "com.zmmxkid.pitool.fileprovider", renamedFile);
+                intent.setDataAndType(fileUri, "*/*");
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setPackage("com.miniclip.plagueinc");
+
+                try {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(scnperson.this);
+                    builder.setMessage("注意：\n1.不是每个场景都能用手机游玩的，如遇问题请游玩其他场景\n2.请确保你把瘟疫公司从最近任务里划走(彻底处于未打开状态)才能正常游玩")
+                            .setPositiveButton("多档游玩", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // 多档游玩：启动悬浮窗服务
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(scnperson.this)) {
+                                        Intent overlayIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                                                Uri.parse("package:" + getPackageName()));
+                                        startActivity(overlayIntent);
+                                        Toast.makeText(scnperson.this, "请授予悬浮窗权限后再尝试", Toast.LENGTH_LONG).show();
+                                    } else {
+                                        Intent floatIntent = new Intent(scnperson.this, FloatingViewService.class);
+                                        floatIntent.putExtra("key", num + "-" + headText.getText().toString());
+                                        startService(floatIntent);
+                                        try {
+                                            startActivity(intent);
+                                        } catch (Exception e) {
+                                            Toast.makeText(scnperson.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setNegativeButton("单档游玩", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // 单档游玩：不开悬浮窗，只开游戏
+                                    try {
+                                        startActivity(intent);
+                                    } catch (Exception e) {
+                                        Toast.makeText(scnperson.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                    dialog.dismiss();
+                                }
+                            });
+                    builder.create().show();
+                } catch (Exception e) {
+                    new AlertDialog.Builder(scnperson.this)
+                            .setMessage(e.getMessage())
+                            .setPositiveButton("OK", (dialog, id) -> dialog.dismiss())
+                            .create().show();
                 }
             } else {
                 Toast.makeText(scnperson.this, "下载场景文件失败", Toast.LENGTH_SHORT).show();

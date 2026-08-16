@@ -65,7 +65,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="v4.2.0正式版"
+                        android:text="v4.5.0正式版"
                         android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
@@ -278,7 +278,7 @@
                 </LinearLayout>
                 <Space android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="2"/>
 
-                <!-- 🎲 试试手气 -->
+                <!-- 💡 场景推荐 -->
                 <LinearLayout
                         android:id="@+id/button16"
                         android:layout_width="match_parent"
@@ -286,7 +286,7 @@
                         android:layout_weight="3"
                         android:background="@drawable/select_button"
                         android:gravity="center"
-                        android:onClick="gonglue"
+                        android:onClick="openRecommend"
                         android:orientation="horizontal"
                         android:clickable="true"
                         android:focusable="true">
@@ -295,7 +295,7 @@
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="🎲"
+                            android:text="💡"
                             android:textSize="20sp" />
 
                     <View
@@ -306,7 +306,7 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="试试手气？"
+                            android:text="场景推荐"
                             android:textColor="@color/text_def"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -320,7 +320,7 @@
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="🎲"
+                            android:text="💡"
                             android:textSize="20sp" />
                 </LinearLayout>
 

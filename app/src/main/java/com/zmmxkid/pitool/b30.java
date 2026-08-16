@@ -38,6 +38,29 @@ public class b30 extends AppCompatActivity {
     private TextView[] pttTextViews = new TextView[30];
     private Handler handler;
 
+    /** 得分为 0 时不展示本行其它字段、不着色、不加载图标、不可跳转 */
+    private void resetRowWhenScoreZero(int idx) {
+        bydTextViews[idx].setText("");
+        bydTextViews[idx].setTextColor(Color.BLACK);
+        bydTextViews[idx].setShadowLayer(0, 0, 0, Color.TRANSPARENT);
+        nameTextViews[idx].setText("");
+        scoreTextViews[idx].setText("0");
+        levelTextViews[idx].setText("");
+        pttTextViews[idx].setText("");
+        imgViews[idx].setOnClickListener(null);
+        imgViews[idx].setClickable(false);
+        imgViews[idx].setImageResource(R.drawable.rating_off);
+    }
+
+    private static boolean isScoreZero(String scoreField) {
+        if (scoreField == null) return false;
+        try {
+            return Double.parseDouble(scoreField.trim()) == 0.0;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -307,6 +330,11 @@ public class b30 extends AppCompatActivity {
                 }
                 String[] rowData = lines[i].split(",");
                 if (rowData.length >= 7) {
+                    if (isScoreZero(rowData[3])) {
+                        resetRowWhenScoreZero(i - 1);
+                        continue;
+                    }
+                    imgViews[i - 1].setClickable(true);
                     String text = rowData[4];
                     if (text.equals("BYD")) {
                         bydTextViews[i - 1].setTextColor(Color.RED);  // 设置字体颜色为红色

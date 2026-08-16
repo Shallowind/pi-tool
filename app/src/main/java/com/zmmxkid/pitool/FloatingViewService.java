@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.GradientDrawable;
@@ -18,8 +20,9 @@ import android.widget.*;
 import androidx.annotation.NonNull;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
+import java.io.FileOutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -134,10 +137,69 @@ public class FloatingViewService extends Service {
             File source = new File(saveDirPath, selected);
             File target = new File(saveDirPath + "/original", "quicksave.k3a");
 
+            // 恢复前先备份当前 original，坏了可回滚
+            File backup = new File(saveDirPath + "/original", "quicksave.bak.k3a");
+            if (isValidK3a(target) && !atomicCopy(target, backup)) {
+                showCustomToast("备份当前存档失败，已取消恢复");
+                return;
+            }
+
             try {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     isRestoring = true;  // 设置为正在恢复
-                    Files.copy(source.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    if (!atomicCopy(source, target)) {
+                        // 失败：尝试从备份回滚
+                        if (isValidK3a(backup)) {
+                            atomicCopy(backup, target);
+                        }
+                        isRestoring = false;
+                        showCustomToast("恢复失败: 复制出错，已回滚");
+                        return;
+                    }
+                    if (!isValidK3a(target)) {
+                        // 复制出来是半截/空档：回滚
+                        if (isValidK3a(backup)) {
+                            atomicCopy(backup, target);
+                        }
+                        isRestoring = false;
+                        showCustomToast("恢复失败: 文件不完整，已回滚");
+                        return;
+                    }
+                    if (target.length() != source.length()) {
+                        // 恢复后回读对比：大小不一致说明复制不完整，回滚
+                        if (isValidK3a(backup)) {
+                            atomicCopy(backup, target);
+                        }
+                        isRestoring = false;
+                        showCustomToast("恢复失败: 回读大小不一致，已回滚");
+                        return;
+                    }
+
+                    // ⑤ 连带恢复 .evts：槽位 evts → original/quicksave.evts
+                    File evtsSlot = new File(saveDirPath, selected.replaceAll("\\.k3a$", ".evts"));
+                    File evtsOrig = new File(saveDirPath + "/original", "quicksave.evts");
+                    File evtsBak = new File(saveDirPath + "/original", "quicksave.evts.bak");
+                    if (evtsOrig.exists() && evtsOrig.length() > 0 && !atomicCopy(evtsOrig, evtsBak)) {
+                        Log.e(TAG, "备份 quicksave.evts 失败");
+                    }
+                    if (evtsSlot.exists() && evtsSlot.length() > 0) {
+                        if (atomicCopy(evtsSlot, evtsOrig)) {
+                            Log.d(TAG, "已连带恢复 .evts");
+                        } else {
+                            // 恢复失败：回滚 .evts
+                            if (evtsBak.exists() && evtsBak.length() > 0) {
+                                atomicCopy(evtsBak, evtsOrig);
+                            }
+                            Log.e(TAG, "恢复 .evts 失败，已回滚");
+                        }
+                    } else {
+                        // 槽位没有 .evts（旧存档/老版游戏）→ 删掉旧的，避免用错事件状态
+                        if (evtsOrig.exists()) {
+                            evtsOrig.delete();
+                            Log.d(TAG, "槽位无 .evts，已清除 original 旧 .evts");
+                        }
+                    }
+
                     showCustomToast("成功！游戏设置中可回溯到该存档点\n存档系统已视为您在游玩该存档场景");
                     new Handler(Looper.getMainLooper()).postDelayed(() -> {
                         isRestoring = false;
@@ -146,6 +208,10 @@ public class FloatingViewService extends Service {
                 }
             } catch (Exception e) {
                 Log.e(TAG, "恢复存档失败", e);
+                // 异常时尝试回滚
+                if (isValidK3a(backup)) {
+                    atomicCopy(backup, target);
+                }
                 showCustomToast("恢复失败:");
             }
         });
@@ -162,6 +228,12 @@ public class FloatingViewService extends Service {
             }
             File file = new File(saveDirPath, selected);
             if (file.exists() && file.delete()) {
+                // 连带删除同名 .evts
+                File evts = new File(saveDirPath, selected.replaceAll("\\.k3a$", ".evts"));
+                if (evts.exists()) {
+                    evts.delete();
+                    Log.d(TAG, "已连带删除 .evts: " + evts.getName());
+                }
                 showCustomToast("删除成功");
 
                 updateSaveList();
@@ -242,6 +314,9 @@ public class FloatingViewService extends Service {
 
                                 isExpanded = true;
                                 updateSaveList();
+                                if (fileObserver == null) {
+                                    startMonitoring(); // 目录/权限就绪后补注册
+                                }
                             }
                         }
                         return true;
@@ -259,6 +334,10 @@ public class FloatingViewService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent != null) {
             thestart = intent.getStringExtra("key");
+        }
+        // 权限/目录就绪后补注册（首次因权限未授或目录缺失导致监听缺席时）
+        if (fileObserver == null) {
+            startMonitoring();
         }
         return START_STICKY;
     }
@@ -372,6 +451,16 @@ public class FloatingViewService extends Service {
                 showCustomToast("新文件名已存在");
 
             } else if (oldFile.renameTo(newFile)) {
+                // 连带把 .evts 一起改名
+                File oldEvts = new File(saveDirPath, oldFile.getName().replaceAll("\\.k3a$", ".evts"));
+                File newEvts = new File(saveDirPath, newFile.getName().replaceAll("\\.k3a$", ".evts"));
+                if (oldEvts.exists()) {
+                    if (oldEvts.renameTo(newEvts)) {
+                        Log.d(TAG, "已连带重命名 .evts: " + newEvts.getName());
+                    } else {
+                        Log.e(TAG, "重命名 .evts 失败: " + oldEvts.getName());
+                    }
+                }
                 showCustomToast("重命名成功");
 
                 updateSaveList();
@@ -412,40 +501,91 @@ public class FloatingViewService extends Service {
     }
 
     private void startMonitoring() {
+        if (fileObserver != null) {
+            return; // 已注册，防止重复
+        }
+
         File watchFile = new File(watchPath);
         File parentDir = watchFile.getParentFile();
+        if (parentDir == null) return;
 
-        if (parentDir == null || !parentDir.exists()) {
-            Log.e(TAG, "监控目录不存在: " + watchPath);
-            return;
+        // 先建目录(original 不存在就连带建出 PlagueIncSaves)，再判断
+        if (!parentDir.exists()) {
+            if (!parentDir.mkdirs()) {
+                Log.e(TAG, "创建监控目录失败: " + parentDir.getAbsolutePath());
+                return;
+            }
         }
 
         File saveDir = new File(saveDirPath);
         if (!saveDir.exists()) saveDir.mkdirs();
 
-        fileObserver = new FileObserver(parentDir.getAbsolutePath(), FileObserver.CLOSE_WRITE | FileObserver.MODIFY) {
+        fileObserver = new FileObserver(parentDir.getAbsolutePath(), FileObserver.CLOSE_WRITE | FileObserver.MOVED_TO) {
             @Override
             public void onEvent(int event, String path) {
                 if (path == null || !path.equals("quicksave.k3a")) return;
+
+                // ① 只处理 CLOSE_WRITE | MOVED_TO，跳过写到一半的 MODIFY
+                if ((event & (FileObserver.CLOSE_WRITE | FileObserver.MOVED_TO)) == 0) {
+                    return;
+                }
 
                 if (isRestoring) {
                     Log.d(TAG, "正在恢复，不处理这次文件变动");
                     return;
                 }
 
-
                 long now = System.currentTimeMillis();
-                if (now - lastHandledTime < 2000) return;
+                if (now - lastHandledTime < 800) return;
                 lastHandledTime = now;
 
                 File srcFile = new File(watchPath);
+
+                // ② 复制前：等源文件稳定（连续 2 次 size/mtime 不变，间隔 150ms；超 2s 放弃）
+                long lastM = srcFile.lastModified(), lastS = srcFile.length();
+                int stable = 0, waitMs = 0;
+                while (stable < 2) {
+                    try {
+                        Thread.sleep(150);
+                    } catch (InterruptedException e) {
+                        return;
+                    }
+                    waitMs += 150;
+                    if (waitMs > 2000) {
+                        Log.d(TAG, "源文件一直不稳定，跳过本次归档");
+                        return;
+                    }
+                    long m = srcFile.lastModified(), s = srcFile.length();
+                    if (m == lastM && s == lastS) stable++;
+                    else stable = 0;
+                    lastM = m;
+                    lastS = s;
+                }
+
+                if (!isValidK3a(srcFile)) {
+                    Log.d(TAG, "源文件不完整，跳过本次备份");
+                    return;
+                }
                 @SuppressLint("SimpleDateFormat") String formattedTime = new SimpleDateFormat("yyMMdd_HHmmss").format(new Date(now));
-                String safeStart = thestart.replaceAll("[:\\\\/*?\"<>|]", "_");
+                String safeStart = (thestart == null ? "" : thestart).replaceAll("[:\\\\/*?\"<>|]", "_");
                 File destFile = new File(saveDirPath, safeStart + "-" + formattedTime + ".k3a");
 
                 try {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        Files.copy(srcFile.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                        long s1 = srcFile.length(), m1 = srcFile.lastModified();
+                        boolean copied = atomicCopy(srcFile, destFile);
+                        long s2 = srcFile.length(), m2 = srcFile.lastModified();
+
+                        // ③ 回测：复制前后源大小/时间没变，且槽位大小 == 最终源大小，才算成功
+                        if (!copied || s1 != s2 || m1 != m2 || destFile.length() != s2) {
+                            if (destFile.exists()) destFile.delete();
+                            Log.e(TAG, "复制期间源文件发生变化，已放弃本次归档: " + destFile.getName());
+                            return;
+                        }
+
+                        // ④ 连带归档 .evts（事件计数），失败不影响 k3a 槽位
+                        copyEvtsSidecar(destFile);
+
                         new Handler(getMainLooper()).post(() -> updateSaveList());
                     }
                 } catch (Exception e) {
@@ -454,6 +594,59 @@ public class FloatingViewService extends Service {
             }
         };
         fileObserver.startWatching();
+    }
+
+    /** 原子复制：先写 dst.tmp，再 rename 覆盖 dst（同一文件系统内 rename 是原子的） */
+    private static boolean atomicCopy(File src, File dst) {
+        File tmp = new File(dst.getAbsolutePath() + ".tmp");
+        try {
+            try (java.io.InputStream in = new java.io.FileInputStream(src);
+                 java.io.OutputStream out = new java.io.FileOutputStream(tmp)) {
+                byte[] buf = new byte[4096];
+                int n;
+                while ((n = in.read(buf)) > 0) out.write(buf, 0, n);
+                out.flush();
+            }
+            if (dst.exists() && !dst.delete()) return false;
+            return tmp.renameTo(dst);
+        } catch (Exception e) {
+            Log.e(TAG, "atomicCopy失败", e);
+            return false;
+        } finally {
+            tmp.delete();
+        }
+    }
+
+    /** 完整性校验：文件存在且大小 ≥ 256 字节（挡住明显半截档，正常 k3a 有几十 KB 以上） */
+    private static boolean isValidK3a(File f) {
+        return f != null && f.exists() && f.length() >= 256;
+    }
+
+    /**
+     * 连带复制 .evts 侧车文件（事件计数）：目标槽名与 k3a 同名换扩展名，如 "xxx-250101_120000.evts"。
+     * 游戏先写 k3a 再写 .evts，这里最多等 1 秒确保 .evts 已就位。
+     */
+    private void copyEvtsSidecar(File k3aSlot) {
+        try {
+            File evtsSrc = new File(watchPath.replaceAll("\\.k3a$", ".evts"));
+            File evtsDst = new File(saveDirPath, k3aSlot.getName().replaceAll("\\.k3a$", ".evts"));
+
+            long deadline = System.currentTimeMillis() + 1000;
+            while ((!evtsSrc.exists() || evtsSrc.length() == 0) && System.currentTimeMillis() < deadline) {
+                Thread.sleep(100);
+            }
+            if (evtsSrc.exists() && evtsSrc.length() > 0) {
+                if (atomicCopy(evtsSrc, evtsDst)) {
+                    Log.d(TAG, "已连带归档 .evts: " + evtsDst.getName());
+                } else {
+                    Log.e(TAG, "归档 .evts 失败: " + evtsDst.getName());
+                }
+            } else {
+                Log.d(TAG, "源 .evts 不存在或为空，跳过连带归档");
+            }
+        } catch (InterruptedException e) {
+            Log.e(TAG, "等待 .evts 被打断", e);
+        }
     }
 
     private int dpToPx(int dp) {
@@ -582,13 +775,48 @@ public class FloatingViewService extends Service {
                 if (iconFile.exists()) {
                     imageView.setImageURI(Uri.fromFile(iconFile));
                 } else {
-                    imageView.setImageResource(R.mipmap.logo); // 默认图标
+                    imageView.setImageResource(R.mipmap.logo); // 默认图标，并后台下载缓存
+                    downloadIcon(imageView, prefix);
                 }
             } else {
                 imageView.setImageResource(R.mipmap.logo); // 无合法前缀时使用默认图标
             }
 
             return convertView;
+        }
+
+        /** 场景头图缺失时后台下载并缓存到 filesDir/icons/{id}.png */
+        private void downloadIcon(ImageView imageView, String iconId) {
+            new Thread(() -> {
+                File dir = new File(context.getFilesDir(), "icons");
+                File iconFile = new File(dir, iconId + ".png");
+                if (iconFile.exists()) return;
+
+                HttpURLConnection conn = null;
+                try {
+                    if (!dir.exists()) dir.mkdirs();
+                    URL url = new URL("http://47.93.57.125:521/WebAPI/public/icons/" + iconId + ".png");
+                    conn = (HttpURLConnection) url.openConnection();
+                    conn.setConnectTimeout(5000);
+                    conn.setReadTimeout(5000);
+                    Bitmap bitmap = BitmapFactory.decodeStream(conn.getInputStream());
+                    if (bitmap != null) {
+                        try (FileOutputStream fos = new FileOutputStream(iconFile)) {
+                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                            fos.flush();
+                        }
+                        imageView.post(() -> {
+                            if (iconFile.exists()) {
+                                imageView.setImageURI(Uri.fromFile(iconFile));
+                            }
+                        });
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, "下载场景图标失败: " + iconId, e);
+                } finally {
+                    if (conn != null) conn.disconnect();
+                }
+            }).start();
         }
 
     }

@@ -83,6 +83,9 @@ public class scnlist extends AppCompatActivity {
             String firstData = data[0];
             Intent intent = new Intent(scnlist.this, scnperson.class);
             intent.putExtra("key", firstData);
+            if (data.length > 2) {
+                intent.putExtra("fenbeilv", data[2]);
+            }
             startActivity(intent);
         });
 

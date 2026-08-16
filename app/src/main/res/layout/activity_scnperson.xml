@@ -1994,39 +1994,58 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.8"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
             <Button
                     android:id="@+id/up"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:minHeight="44dp"
                     android:onClick="onUpButtonClick"
                     android:text="上一页"
-                    android:background="@drawable/select_button"/> <!-- 半透明灰色背景 -->
+                    android:textSize="12sp"
+                    android:background="@drawable/select_button"/>
 
             <Button
                     android:id="@+id/button26"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="10dp"
+                    android:minHeight="44dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
                     android:gravity="center"
                     android:background="@drawable/select_button"
                     android:onClick="chakanpl"
-                    android:text="查看评论"/>
+                    android:text="评论区"
+                    android:textSize="12sp"/>
+
+            <Button
+                    android:id="@+id/button_calc_fenbeilv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:minHeight="44dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:gravity="center"
+                    android:background="@drawable/select_button"
+                    android:onClick="openCalculator"
+                    android:text="去算分"
+                    android:textSize="12sp"/>
 
             <Button
                     android:id="@+id/down"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:minHeight="44dp"
                     android:onClick="onDownButtonClick"
                     android:text="下一页"
+                    android:textSize="12sp"
                     android:background="@drawable/select_button"/>
-
-            <!-- 半透明灰色背景 -->
 
         </LinearLayout>
     </LinearLayout>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:paddingHorizontal="8dp"
+              android:paddingTop="4dp"
+              android:paddingBottom="2dp">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/bg_input"
+            android:gravity="center_vertical">
+
+        <EditText
+                android:id="@+id/edit_qq_bind"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:background="@android:color/transparent"
+                android:gravity="center_vertical"
+                android:hint="QQ号码"
+                android:inputType="number"
+                android:paddingHorizontal="8dp"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_hint"
+                android:textSize="17sp"/>
+    </LinearLayout>
+</LinearLayout>

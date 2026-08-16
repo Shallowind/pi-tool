@@ -67,6 +67,13 @@ public class caculate extends AppCompatActivity {
 
         // ===== 初始化 =====
         initRealtimeCalculate();
+
+        String fenbeilvExtra = getIntent().getStringExtra("fenbeilv");
+        if (fenbeilvExtra != null && !fenbeilvExtra.trim().isEmpty()) {
+            EditText etRate = findViewById(R.id.editTextText3);
+            etRate.setText(fenbeilvExtra.trim());
+        }
+
         switchToSimpleTab(); // 默认显示简单计算
     }
 
